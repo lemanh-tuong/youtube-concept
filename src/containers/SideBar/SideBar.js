@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
+import { AppContext } from '../../AppProvider';
 import ButtonGroup from '../ButtonGroup/ButtonGroup';
+import  ToggleButton from '../../components/ButtonComponent/ToggleButton/ToggleButton';
 import Channel from '../../components/Channel/Channel';
 import Logo from '../../components/Logo/Logo';
 import Overlay from '../../components/Overlay/Overlay';
@@ -73,6 +75,18 @@ class SideBar extends Component {
 						<ButtonGroup listBtn={a}/>
 						<ButtonGroup listBtn={b}/>
 						<ButtonGroup listBtn={c}/>
+						<AppContext.Consumer>
+							{({settings, onClickToggleDarkMode}) => {
+								return (
+									<div className={style.toggleButton}>
+										<div className="mb-1">
+											<ToggleButton active={settings.darkMode} onEventClick={onClickToggleDarkMode} />
+										</div>
+										<p>Light {settings.darkMode ? "ON" : "OFF"}</p>
+									</div>
+								)
+							}}
+						</AppContext.Consumer>
 					</div>
 				</div>
 				{openMenu && <Overlay onClick={onClickToggleMenu}/>}

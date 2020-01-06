@@ -8,6 +8,12 @@ class Slide extends Component {
 		maxSlide: 5,
 		perSlideShow: 2
 	}
+	componentDidMount() {
+		this.intervalSlide = setInterval(this._nextSlide, 2000);
+	}
+	componentWillUnmount() {
+		clearInterval(this.intervalSlide);
+	}
 	_nextSlide = () => {
 		this.setState(state => {
 			if(state.currentSlide > state.maxSlide - state.perSlideShow - 1) {

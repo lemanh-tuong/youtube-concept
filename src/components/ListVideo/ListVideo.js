@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { Switch, Route } from 'react-router-dom';
 import { AppContext } from '../../AppProvider';
 import VideoCard from '../../components/VideoCard/VideoCard';
@@ -44,8 +45,10 @@ class ListVideo extends Component {
 			</div>
 		)
 	}
-	
-} 
+}
+ListVideo.propTypes = {
+	listVideos: PropTypes.array
+}
 // render() {
 	// 	const { path, url } = this.props
 	// 	return (

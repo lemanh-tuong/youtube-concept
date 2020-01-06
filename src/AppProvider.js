@@ -42,6 +42,11 @@ class AppProvider extends PureComponent {
   componentDidMount() {
     this._handleGetVideo();
   }
+  componentDidUpdate() {
+    if(this.state.settings.darkMode) {
+      document.getElementsByTagName("body")[0].style.background = "black;"
+    }
+  }
   _handleToggleMenu = () => {
     this.setState(state => {
       return {
@@ -167,7 +172,7 @@ class AppProvider extends PureComponent {
         value={{
           ...this.state,
           onSubmit: this._handleSubmit,
-          onToggleDarkMode: this._handleToggleDarkMode,
+          onClickToggleDarkMode: this._handleToggleDarkMode,
           onChooseOption: this._handleChooseOption,
           onClickToggleMenu: this._handleToggleMenu,
           onClickToggleAutoContinuing: this._handleToggleAutoContinuing,

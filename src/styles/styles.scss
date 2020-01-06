@@ -35,6 +35,12 @@ button {
 	display: flex;
 	overflow: hidden;
 }
+body .App.dark {
+  background: black;
+  & div, p, a {
+    color: white!important;
+  }
+}
 $numbers: (0,1,2,3,4,5,6);
 @each $number in $numbers {
   body .mr-#{$number} {
