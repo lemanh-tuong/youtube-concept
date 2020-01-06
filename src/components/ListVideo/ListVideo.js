@@ -38,7 +38,9 @@ class ListVideo extends Component {
 		console.log(listVideos)
 		return (
 			<div className="ListVideo">
-				{this._renderList(listVideos)}
+				<div className="row">
+					{this._renderList(listVideos)}
+				</div>
 			</div>
 		)
 	}
