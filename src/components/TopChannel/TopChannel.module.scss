@@ -1,0 +1,29 @@
+@import '../../styles/styles';
+.topChannel {
+	display: flex;
+	align-items: center;
+	position: relative;
+}
+.channelAvatar {
+	margin-right: 15px;
+}
+.channelName {
+	color: $text-color-dark;
+	font-weight: bold;
+	font-size: $text-md;
+}
+.channelContact {
+	color: $text-color-light;
+	font-size: $text-sm;
+	font-weight: bold;
+}
+.tick {
+	color: $text-color-light;
+}
+.moreInfoBtn {
+	position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: $text-color-light;
+}

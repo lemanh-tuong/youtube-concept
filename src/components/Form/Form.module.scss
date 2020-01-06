@@ -1,0 +1,28 @@
+@import '../../styles/styles';
+.form {
+	position: relative;
+}
+.formInput {
+	width: 100%;
+	font-size: $text-md;
+	border: 1px solid $color-border;
+	border-radius: 20px;
+	outline: none;
+	padding: 10px 15px;
+	&::placeholder {
+		font-style: italic;
+		color: $text-color-light;
+		font-size: $text-sm;
+	}
+}
+
+.formSubmit {
+	outline: none;
+	border: none;
+	background: transparent;
+	color: $text-color-light;
+	position: absolute;
+	top: 50%;
+	transform: translateY(-50%);
+	right: 20px;
+}

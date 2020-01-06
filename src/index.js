@@ -1,12 +1,29 @@
-import React from 'react';
+import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
-import './index.css';
-import App from './App';
-import * as serviceWorker from './serviceWorker';
+import { BrowserRouter as Router } from "react-router-dom";
+import AppProvider from './AppProvider';
+import { AppContext } from './AppProvider';
+import ToggleMenuButton from './components/ButtonComponent/ToggleMenuButton/ToggleMenuButton';
+import SideBar from './containers/SideBar/SideBar';
+import MainContent from './containers/MainContent/MainContent';
+import WatchPage from './containers/WatchPage/WatchPage';
+import './styles/styles.scss';
+class App extends Component {
 
-ReactDOM.render(<App />, document.getElementById('root'));
+	render() {
+		return(
+		<AppProvider>
+			<Router>
+				<div className="App">
+					<AppContext.Consumer>
+						{({openMenu, onClickToggleMenu}) => <SideBar openMenu={openMenu} onClickToggleMenu={onClickToggleMenu} />}
+					</AppContext.Consumer>
+					<MainContent />
+				</div>
+			</Router>
+		</AppProvider>
+		)
+	}
+}
 
-// If you want your app to work offline and load faster, you can change
-// unregister() to register() below. Note this comes with some pitfalls.
-// Learn more about service workers: https://bit.ly/CRA-PWA
-serviceWorker.unregister();
+ReactDOM.render(<App />, document.getElementById("root"))

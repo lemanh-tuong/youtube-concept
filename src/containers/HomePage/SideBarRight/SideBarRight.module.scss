@@ -1,0 +1,26 @@
+@import '../../../styles/styles';
+.SideBarRight {
+	padding-right: 25px;
+}
+
+.section {
+	padding: 25px 0px;
+}
+.buttonGroup {
+	margin-bottom: 20px;
+}
+.buttonDirection {
+	font-size: $text-sm;
+	color: $text-color-light;
+	&:not(:last-child) {
+		margin-right: 20px;
+	}
+	&.selected {
+		font-size: $text-md;
+		color: black;
+		font-weight: bold;
+	}
+}
+.channel:not(:last-child) {
+	margin-bottom: 20px;
+}

@@ -1,0 +1,116 @@
+@import '../../styles/styles';
+.videoCard {
+	margin-bottom: 20px;
+	& .header {
+		position: relative
+	}
+	& .body, .footer {
+		padding: 8px 4px;
+	}
+	& .body {
+		& .channelName {
+			margin-bottom: 10px;
+			& a {	
+				color: $text-color-light;
+				font-size: $text-sm;
+			}
+		}
+		& .videoName {
+			margin-bottom: 10px;
+			& .link {
+				color: $text-color-dark;
+				font-size: $text-md;
+				font-weight: bold;
+				display: -webkit-box;
+			    max-height: 3.2rem;
+			    -webkit-box-orient: vertical;
+			    overflow: hidden;
+			    text-overflow: ellipsis;
+			    white-space: normal;
+			    -webkit-line-clamp: 1;
+			    max-height: 2.4rem;
+			}
+		}
+	}
+}
+.videoCard2 {
+	display: flex;
+	margin-bottom: 8px;
+	& .left {
+		margin-right: 8px;
+	    height: 94px;
+	    width: 168px;
+	    flex: none;
+	}
+	& .right {
+		& .videoName {
+		    margin: 0 0 4px 0;
+		    display: -webkit-box;
+		    max-height: 4.2rem;
+		    -webkit-box-orient: vertical;
+		    overflow: hidden;
+		    text-overflow: ellipsis;
+		    white-space: normal;
+		    -webkit-line-clamp: 2;
+		    font-size: 14px;
+		    font-weight: 500;
+		    & .link {
+		    	color: black;
+		    }
+		}
+		& .channelName {
+			& a {
+				color: $text-color-dark;
+				font-size: 13px;
+			}
+		}
+		& .contactName {
+		    max-width: 100%;
+		    display: block;
+		    max-height: 3.6rem;
+		    overflow: hidden;
+		    font-size: 13px;
+		    font-weight: 400;
+		    text-transform: none;
+		    display: flex;
+		    -ms-flex-wrap: wrap;
+		    -webkit-flex-wrap: wrap;
+		    flex-wrap: wrap;
+		}
+	}
+    
+}
+
+.channel {
+   position: absolute;
+   bottom: 0;
+   transform: translateY(50%);
+   &.big {
+   		right: 25px;
+   }
+   &.medium {
+   		right: 15px;
+   }
+   &.small {
+   		right: 10px;
+   }
+}
+
+
+.desc {
+	font-size: $text-sm;
+	color: $text-color-light;
+	margin-bottom: 10px;
+}
+.contact {
+	display: flex;
+}
+.contactItem {
+	text-transform: uppercase;
+	font-size: $text-sm;
+	color: $text-color-light;
+	font-weight: bold;
+	&:not(:last-child) {
+		margin-right: 20px;
+	}
+}

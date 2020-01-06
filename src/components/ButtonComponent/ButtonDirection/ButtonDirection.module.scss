@@ -1,0 +1,35 @@
+@import '../../../styles/styles.scss';
+.buttonDirection {
+	@media (min-width: 992px) {
+		padding-left: 28px;
+	}
+}
+.icon {
+	font-size: $text-md;
+	color: $text-color-light;
+	margin-right: 10px;
+}
+
+.content {
+	font-size: $text-md;
+	color: $text-color-dark;
+	font-weight: bold;
+	margin-right: 10px;
+}
+.notification {
+	font-size: $text-md;
+	color: $status-busy;
+	font-weight: bold;
+}
+.selected {	
+	&:before {
+		content: '';
+		position: absolute;
+		width: 5px;
+		height: 100%;
+		background: $status-busy;
+		left: 0;
+		top: 50%;
+		transform: translateY(-50%);
+	}
+}

@@ -1,0 +1,47 @@
+@import '../../../styles/styles';
+.SideBarLeft {
+	padding: 55px 40px;
+	border: 1px solid $color-border;
+	border-top: none;
+}
+.section {
+	padding: 35px 0;
+}
+.introduce {
+	margin-bottom: 40px;
+}
+.titleBig {
+	font-size: $text-big;
+	font-weight: bold;
+	color: black;
+}
+.titleMd {
+	font-size: $text-md;
+	font-weight: bold;
+	color: black;
+}
+.titleSm {
+	font-size: $text-sm;
+	color: $text-color-light;
+}
+
+.header {
+	padding-bottom: 35px;
+	border-bottom: 2px solid $color-border;
+}
+
+.buttonGroup {
+	margin-bottom: 20px;
+}
+.buttonDirection {
+	font-size: $text-sm;
+	color: $text-color-light;
+	&:not(:last-child) {
+		margin-right: 20px;
+	}
+	&.selected {
+		font-size: $text-md;
+		color: black;
+		font-weight: bold;
+	}
+}

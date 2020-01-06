@@ -1,0 +1,51 @@
+@import '../../styles/styles.scss';
+@mixin status($statusColor) {
+    position: absolute;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    box-sizing: initial;
+    border: 2px solid white;
+    bottom: 5px;
+    right: 5px;
+    background: $statusColor;
+}
+.image {
+    border-radius: 50%;
+    overflow: hidden;
+    display: inline-block;
+    border: 5px white solid;
+    box-sizing: initial;
+}
+.big {
+    max-width: 80px;
+    max-height: 80px;
+}
+.medium {
+    max-width: 50px;
+    max-height: 50px;
+}
+.small {
+    max-width: 40px;
+    max-height: 40px;
+}
+.avatar {
+	position: relative;
+	display: inline-block;
+}
+.imageAvatarlarge {
+    max-width: 100px;
+    max-height: 100px;
+}
+
+.status {
+    &busy {
+        @include status($status-busy);
+    }
+    &online {
+        @include status($status-online);
+    }
+    &offline {
+        @include status($status-offline);
+    }
+}

@@ -1,0 +1,44 @@
+@import '../../styles/styles.scss';
+.channel {
+	text-align: center;
+}
+.header {
+	margin-bottom: 10px;
+}
+.body {
+	margin-bottom: 20px;
+}
+.footer {
+	display: none;
+	@media (min-width: 1200px) {
+		display: block;
+	}
+}
+.name {
+	color: $text-color-dark;
+	font-size: $text-md;
+	font-weight: bold;
+}
+.location {
+	color: $text-color-light;
+	font-size: $text-sm;
+	font-weight: bold;
+}
+.contact {
+	display: flex;
+	justify-content: center;
+}
+.item:not(:first-child) {
+	margin-left: 42px;
+}
+.ammount {
+	color: $text-color-dark;
+	font-size: $text-md;
+	font-weight: bold;
+}
+.nameContact {
+	color: $text-color-light;
+	font-size: $text-sm;
+	font-weight: bold;
+	text-transform: uppercase;
+}

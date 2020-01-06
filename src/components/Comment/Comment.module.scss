@@ -1,0 +1,63 @@
+.Comment {
+    margin-bottom: 20px;
+}
+.commentContainer {
+	display: flex;
+}
+.avatar {
+    margin-right: 16px;
+    margin-left: -5px;
+    border-radius: 50%;
+    flex: none;
+}
+.top {
+	display: flex;
+	flex-wrap: wrap;
+    margin-bottom: 2px;
+}
+.userName {
+    margin-right: 4px;
+    color: #0d0d0d;
+    margin-bottom: 2px;
+    font-size: 14px;
+    font-weight: bold;
+    line-height: 18px;
+}
+.date {
+    white-space: nowrap;
+    font-size: 13px;
+    line-height: 18px;
+    text-transform: none;
+    color: grey;
+}
+.commentContent {
+	overflow: hidden;
+    max-height: 60px;
+    & p {
+    	color: #0d0d0d;
+	    font-size: 14px;
+	    font-weight: 400;
+    }
+}
+
+
+.buttonsNormal {
+	margin-left: -8px;
+    margin-top: 4px;
+}
+.buttonNormal {
+	display: inline-block;
+    margin-right: 8px;
+    font-size: 14px;
+    line-height: 18px;
+    text-transform: none;
+    &:last-child {
+    	margin-right: 0px;
+    }
+}
+.button {
+	padding: 8px;
+}
+.buttonReply {
+	padding: 8px 16px;
+}

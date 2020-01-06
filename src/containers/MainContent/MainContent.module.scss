@@ -1,0 +1,28 @@
+@import "../../styles/styles";
+.mainContent {
+	width: 100%;
+	@media (min-width: 768px) {
+		width: 85%;
+		margin-left: 15%;
+	}
+}
+.header {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+.header {
+	padding: 20px;
+	border-bottom: 2px solid $color-border;
+	position: relative;
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	@media (min-width: 768px) {
+		justify-content: center;
+	}
+}
+.headerForm {
+	min-width: 350px;
+	max-width: 80%;
+}

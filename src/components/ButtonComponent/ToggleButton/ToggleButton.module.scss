@@ -1,0 +1,29 @@
+.toggleButton {
+  margin-left: 20px;
+  position: relative;
+  width: 35px;
+  height: 15px;
+  background: #c6c6c6;
+  border-radius: 20px;
+  box-shadow: inset 0 0 5px rgba(0,0,0,0.2);
+  transition: .4s;
+  &.active {
+    background: #03a9f3;
+  }
+  &:before {
+    content: '';
+    height: 20px;
+    width: 20px;
+    border-radius: 50%;
+    top: -3px;
+    left: 0;
+    position: absolute;
+    background: white;
+    transform: scale(1.2);
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+    transition: 0.4s
+  }
+  &.active:before {
+    left: calc(100% - 20px);
+  }
+}
