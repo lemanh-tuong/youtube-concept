@@ -1,0 +1,64 @@
+.FormComment {
+	margin-top: 24px;
+	margin-bottom: 32px;
+}
+.formContent {
+	display: flex;
+
+}
+.avatar {
+	margin-right: 16px;
+	margin-left: -5px;
+}
+
+.main {
+	flex: 1 1 auto;
+	& input {
+		width: 100%;
+		transition: 0.2s;
+		position: relative;
+		outline: none;
+	    border: none;
+	    border-bottom: 1px solid grey;
+	    margin-bottom: 11.5px;
+	    &:focus {
+			border-bottom: 2px solid black;
+	    }
+	}
+}
+.title {
+    font-size: 13px;
+    font-weight: 400;
+    text-transform: none;
+    -ms-flex: 1 1 0.000000001px;
+    -webkit-flex: 1;
+    flex: 1;
+    -webkit-flex-basis: 0.000000001px;
+    flex-basis: 0.000000001px;
+}
+.footer {
+	display: flex;
+	justify-content:space-between;
+}
+.disable {
+	display: none;
+}
+.buttonGroup {
+	display: flex;
+	& button {
+		padding: 10px 16px;
+		text-transform: uppercase;
+		transition: 0.3s all;
+	}
+	.unable {
+		background: #ccc;
+		margin-left: 8px;
+		color: #fff
+	}
+	.able {
+		background: #065fd4;
+		color: #fff;
+		margin-left: 8px;
+		font-weight: bold;
+	}
+}

@@ -7,4 +7,8 @@
     letter-spacing: .007px;
     text-transform: uppercase;
     padding: 8px 15px;
+    &.subscribed {
+		background: #0000001a;
+		color: #606060;
+	}
 }

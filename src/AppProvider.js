@@ -5,7 +5,7 @@ function getQuery(stringQuery, queryName) {
   const queries = listQuery.map(query => {
     let pair = query.split("=");
     if (pair[0] === queryName) return pair[1];
-    return;
+    return undefined;
   });
   return queries.filter(query => query !== undefined);
 }
@@ -24,6 +24,7 @@ class AppProvider extends PureComponent {
     searchVideos: [],
     watchingVideo: {
       videoTitle: "A",
+      channelTitle: "B",
       publishedAt: "5 thg 3, 2017",
       imgSrcs: {
         maxres: {
@@ -47,6 +48,8 @@ class AppProvider extends PureComponent {
       document.getElementsByTagName("body")[0].style.background = "black;"
     }
   }
+
+  //Toggle
   _handleToggleMenu = () => {
     this.setState(state => {
       return {
@@ -74,6 +77,8 @@ class AppProvider extends PureComponent {
       }
     })
   }
+
+  //Choose
   _handleChooseOption = (type, option) => {
     return () => {
       if (type === "font-size") {
@@ -100,7 +105,9 @@ class AppProvider extends PureComponent {
       }
     };
   };
-  _handleSubmit = (keyword, ref) => {
+
+  //Submit
+  _handleSubmitSearch = (keyword, ref) => {
     return () => {
       const { data } = this.state;
       const query = keyword;
@@ -115,6 +122,10 @@ class AppProvider extends PureComponent {
       ref.current.value = "";
     };
   };
+  _handleSubmitComment = (content) => {
+    console.log(content);
+  }
+
   _handleWatchVideo = (videoDetails) => {
     const { channelTitle, channelId, videoTitle, imgSrcs, publishedAt, description, videoId } = videoDetails
     return () => {
@@ -166,12 +177,12 @@ class AppProvider extends PureComponent {
     }
   };
   render() {
-    console.log(this.state)
     return (
       <AppContext.Provider
         value={{
           ...this.state,
-          onSubmit: this._handleSubmit,
+          onSubmitSearch: this._handleSubmitSearch,
+          onSubmitComment: this._handleSubmitComment,
           onClickToggleDarkMode: this._handleToggleDarkMode,
           onChooseOption: this._handleChooseOption,
           onClickToggleMenu: this._handleToggleMenu,

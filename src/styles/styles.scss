@@ -1,3 +1,4 @@
+// abstract
 $text-color-dark: #2d2d2d;
 $text-color-light: #a6a6a6;
 $status-busy: #df253b;
@@ -12,6 +13,9 @@ $text-big: 26px;
 $text-md: 16px;
 $text-sm: 12px;
 $text-xm: 10px;
+
+
+// Reset
 * {
 	padding: 0;
 	margin: 0;
@@ -41,6 +45,9 @@ body .App.dark {
     color: white!important;
   }
 }
+
+
+// Helper
 $numbers: (0,1,2,3,4,5,6);
 @each $number in $numbers {
   body .mr-#{$number} {
@@ -55,4 +62,14 @@ $numbers: (0,1,2,3,4,5,6);
   body .mb-#{$number} {
     margin-bottom: calc(#{$number}px * 10)!important;
   }
+}
+
+
+
+//Icon
+.fa-sort-up {
+  vertical-align: bottom;
+}
+.fa-sort-down {
+  vertical-align: top;
 }

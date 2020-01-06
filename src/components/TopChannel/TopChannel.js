@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import Avatar from '../Avatar/Avatar';
 import style from './TopChannel.module.scss';
 class TopChannel extends Component {
@@ -10,7 +11,7 @@ class TopChannel extends Component {
 		)
 	}
 	render() {
-		const { withMoreInfo } = this.props
+		const { channelName, channelSubscribe, withMoreInfo } = this.props
 		return (
 			<div className={style.topChannel}>
 				<div className={style.channelAvatar}>
@@ -18,15 +19,19 @@ class TopChannel extends Component {
 				</div>
 				<div className={style.channelInfo}>
 					<div className={style.channelName}>
-						LEGO <i className={`${style.tick} fas fa-check-circle`}></i>
+						{channelName} <i className={`${style.tick} fas fa-check-circle`}></i>
 					</div>
 					<div className={style.channelContact}>
-						<span>6.2M Subscribers</span>
+						<span>{channelSubscribe} Subscribers</span>
 					</div>
 				</div>
 				{withMoreInfo && this._renderMoreInfoButton()}
 			</div>
 		)
 	}
+}
+TopChannel.propTypes = {
+	channelName: PropTypes.string,
+	channelContact: PropTypes.string
 }
 export default TopChannel;

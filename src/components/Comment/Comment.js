@@ -4,7 +4,7 @@ import Avatar from '../Avatar/Avatar';
 import style from './Comment.module.scss';
 class Comment extends PureComponent {
 	render() {
-		const { type } = this.props
+		const { type, onEventClick } = this.props
 		return (
 			<div className={style.Comment}>
 				<div className={style.commentContainer}>
@@ -44,7 +44,7 @@ class Comment extends PureComponent {
 								24N
 							</div>
 							<div className={style.buttonNormal}>
-								<button className={style.buttonReply}>
+								<button className={style.buttonReply} onClick={onEventClick}>
 									Phản hồi
 								</button>
 							</div>
@@ -56,6 +56,7 @@ class Comment extends PureComponent {
 	}
 }
 Comment.propTypes = {
-	type: PropTypes.string
+	type: PropTypes.string,
+	onEventClick: PropTypes.func
 }
 export default Comment;

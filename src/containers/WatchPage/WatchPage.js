@@ -3,8 +3,8 @@ import { AppContext } from '../../AppProvider';
 import VideoCard from '../../components/VideoCard/VideoCard';
 import VideoDetails from '../../components/VideoDetails/VideoDetails';
 import ToggleButton from '../../components/ButtonComponent/ToggleButton/ToggleButton';
+import FormComment from '../../components/FormComment/FormComment';
 import SectionComment from '../SectionComment/SectionComment';
-import ListVideo from '../../components/ListVideo/ListVideo';
 import style from './WatchPage.module.scss';
 const tags = ["a","b","c"];
 class WatchPage extends PureComponent {
@@ -18,8 +18,8 @@ class WatchPage extends PureComponent {
 		channelId={channelId}
 		videoTitle={videoTitle}
 		imgSrcs={imgSrcs}
-		publishedAt={publishedAt}
 		description={description}
+		publishedAt={publishedAt}
 		key={videoId}
 		videoId={videoId}
 		withAvatar
@@ -56,10 +56,16 @@ class WatchPage extends PureComponent {
 									viewCount="27M"
 									publishedAt={publishedAt}
 									imgSrc={imgSrcs.maxres.url}
+									description={description}
 									/>
 						}}
 					</AppContext.Consumer>
-					<div className={style.sectionComment}>
+					<div className="WatchPage__left__body">
+						<div className="form--comment">
+							<AppContext.Consumer>
+								{({onSubmitComment}) => <FormComment onEventSubmit={onSubmitComment} />}
+							</AppContext.Consumer>
+						</div>
 						<SectionComment />
 						<SectionComment />
 						<SectionComment />

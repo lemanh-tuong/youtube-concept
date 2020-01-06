@@ -29,7 +29,6 @@ class SideBarLeft extends PureComponent {
 		/>
 	}
 	render() {
-		const { url, path } = this.props
 		return (
 			<div className={style.SideBarLeft}>
 				<div className={style.header}>

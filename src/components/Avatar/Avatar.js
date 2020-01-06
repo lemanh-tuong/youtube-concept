@@ -8,9 +8,10 @@ class Avatar extends PureComponent {
 	}
 	render() {
 		const {status, size} = this.props;
+		const url = "https://yt3.ggpht.com/a-/AAuE7mB3fAbzXqOP6_An4ADb6ykmjTqDbcH38xwvtw=s68-c-k-c0x00ffffff-no-rj-mo"
 		return (
 			<div className={style["avatar"]}>
-					<img className={`${style.image} ${style[size]}`} src="https://yt3.ggpht.com/a-/AAuE7mB3fAbzXqOP6_An4ADb6ykmjTqDbcH38xwvtw=s68-c-k-c0x00ffffff-no-rj-mo" />
+					<img className={`${style.image} ${style[size]}`} src={url} alt="Avatar" />
 				{status && this._renderStatus(status)}
 			</div>
 		)

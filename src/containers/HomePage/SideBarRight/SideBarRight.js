@@ -59,7 +59,7 @@ class SideBarRight extends PureComponent {
 	}
 	_renderTopChannel(channelDetails) {
 		const { name, contact } = channelDetails;
-		return <div className={style.channel}><TopChannel /></div>
+		return <div className={style.channel}><TopChannel channelName={name} channelSubscribe={contact} /></div>
 	}
 	render() {
 		return (

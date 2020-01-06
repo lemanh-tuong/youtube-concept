@@ -1,7 +1,5 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { Switch, Route } from 'react-router-dom';
-import { AppContext } from '../../AppProvider';
 import VideoCard from '../../components/VideoCard/VideoCard';
 import style from './ListVideo.module.scss';
 class ListVideo extends Component {
@@ -36,7 +34,6 @@ class ListVideo extends Component {
 	}
 	render() {
 		const { listVideos } = this.props;
-		console.log(listVideos)
 		return (
 			<div className="ListVideo">
 				<div className="row">

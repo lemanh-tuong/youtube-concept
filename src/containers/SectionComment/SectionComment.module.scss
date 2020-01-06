@@ -1,3 +1,23 @@
-.replies {
+.SectionComment {
+	margin-bottom: 20px;
+}
+.showMore {
+	padding-top: 2px;
+	padding-bottom: 10px;
+	& button {
+		color: #1010da;
+  		font-weight: 600;
+		& i {
+			margin-right: 8px;
+		}
+	}
+}
+.replies{
+	margin-left: 70px;
+}
+.replyForm {
 	margin-left: 65px;
+}
+.hidden {
+	display: none;
 }

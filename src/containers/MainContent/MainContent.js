@@ -3,7 +3,6 @@ import { Switch, Route} from 'react-router-dom';
 import { AppContext } from '../../AppProvider';
 import style from './MainContent.module.scss';
 import Form from '../../components/Form/Form';
-import SideBar from '../SideBar/SideBar';
 import ToggleMenuButton from '../../components/ButtonComponent/ToggleMenuButton/ToggleMenuButton';
 import routeApp from '../../Route/RouteApp';
 class MainContent extends Component {
@@ -23,7 +22,7 @@ class MainContent extends Component {
 					</AppContext.Consumer>
 					<div className={style.headerForm}>
 						<AppContext.Consumer>
-							{({onSubmit}) => <Form onSubmit={onSubmit}/>}
+							{({onSubmitSearch}) => <Form onSubmit={onSubmitSearch}/>}
 						</AppContext.Consumer>
 					</div>
 				</div>

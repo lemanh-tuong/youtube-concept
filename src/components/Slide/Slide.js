@@ -32,7 +32,7 @@ class Slide extends Component {
 	}
 	_prevSlide = () => {
 		this.setState(state => {
-			if(state.currentSlide == 0) {
+			if(state.currentSlide === 0) {
 				return {
 					...state,
 					currentSlide: state.maxSlide - state.perSlideShow

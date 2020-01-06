@@ -30,7 +30,7 @@ class VideoCard extends Component {
 							{({onClickWatchVideo}) => {
 								return (
 									<Link to={`/watch`} onClick={onClickWatchVideo({channelTitle, channelId, videoTitle, imgSrcs, publishedAt, description, videoId})}>
-										<img src={imgMaxRes} />
+										<img src={imgMaxRes} alt="Img" />
 									</Link>
 								)
 							}}
@@ -65,7 +65,8 @@ class VideoCard extends Component {
 		)
 	}
 	_renderVideoCard2(props) {
-		const { channelTitle, channelId, videoTitle, imgSrcs, publishedAt, description, videoId, withDesc, withAvatar, sizeAvatar } = props;
+		const { channelTitle, channelId, videoTitle, imgSrcs, publishedAt, description, videoId } = props;
+		console.log(description)
 		const imgMaxRes = imgSrcs.maxres.url;
 		return (
 			<div className={style.videoCard2}>
@@ -75,7 +76,7 @@ class VideoCard extends Component {
 							{({onClickWatchVideo}) => {
 								return (
 									<Link to={`/watch`} onClick={onClickWatchVideo({channelTitle, channelId, videoTitle, imgSrcs, publishedAt, description, videoId})}>
-										<img src={imgMaxRes} />
+										<img src={imgMaxRes} alt="Img" />
 									</Link>
 								)
 							}}
