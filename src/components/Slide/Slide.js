@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import VideoCard from '../VideoCard/VideoCard'
-import { AppContext } from '../../AppProvider';
 import style from './Slide.module.scss';
 class Slide extends Component {
 	state = {
@@ -46,10 +46,10 @@ class Slide extends Component {
 			}
 		})
 	}
-	_renderVideoCard(channelTitle, channelId, videoTitle, imgSrcs, publishedAt, description, videoId) {
+	_renderVideoCard(channelTitle, channelId, videoTitle, imgSrcs, publishedAt, description, videoId, key) {
 		return (
 			<div className={style.slide}>
-				<VideoCard 
+				<VideoCard
 					channelTitle={channelTitle}
 					channelId={channelId}
 					videoTitle={videoTitle}
@@ -70,12 +70,14 @@ class Slide extends Component {
 		  const imgSrcs = videoDetails.snippet.thumbnails;
 		  const publishedAt = videoDetails.snippet.publishedAt;
 		  const description = videoDetails.snippet.description;
-		  const id = videoDetails.id;
-			return this._renderVideoCard(channelTitle, channelId, videoTitle, imgSrcs, publishedAt, description, id)
+		  const key = videoDetails.id;
+		  const id = videoDetails.contentDetails.upload.videoId;
+			return this._renderVideoCard(channelTitle, channelId, videoTitle, imgSrcs, publishedAt, description, id, key)
 
 		})
 	}
 	render() {
+		const { listVideos } = this.props;
 		const { currentSlide } = this.state
 		const margin = {
 			transform: `translateX(calc(-${50 * currentSlide}% - ${10 * currentSlide}px))`
@@ -84,9 +86,7 @@ class Slide extends Component {
 			<div className={style.carousel}>
 				<div className={style.slideShow}>
 					<div className={`${style.listImg} ${currentSlide}`} style={margin}>
-						<AppContext.Consumer>
-							{({data}) => this._renderList(data)}
-						</AppContext.Consumer>
+						{this._renderList(listVideos)}
 					</div>
 				</div>
 				<div className={style.prevBtn}>
@@ -102,5 +102,8 @@ class Slide extends Component {
 			</div>
 		)
 	}
+}
+Slide.propTypes = {
+	listVideos: PropTypes.array,
 }
 export default Slide

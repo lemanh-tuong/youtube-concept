@@ -1,50 +1,61 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import VideoCard from '../../components/VideoCard/VideoCard';
+import ChannelCard from '../../components/ChannelCard/ChannelCard';
 import style from './ListVideo.module.scss';
 class ListVideo extends Component {
-	_renderVideoCard(channelTitle, channelId, videoTitle, imgSrcs, publishedAt, description, videoId, sizeAvatar) {
-		return <VideoCard 
+	_renderVideoCard( channelTitle, channelId, videoTitle, imgSrcs, publishedAt, description, videoId, key,sizeAvatar) {
+		return <VideoCard
 		channelTitle={channelTitle}
 		channelId={channelId}
 		videoTitle={videoTitle}
 		imgSrcs={imgSrcs}
 		publishedAt={publishedAt}
 		description={description}
-		key={videoId}
+		key={key}
 		videoId={videoId}
 		withAvatar
 		sizeAvatar={sizeAvatar}
 		/>
 	}
-	_renderList(listVideos) {
+	_renderChannelCard(channelTitle, channelId, imgSrcs) {
+		return <ChannelCard channelTitle={channelTitle} channelId={channelId} imgSrcs={imgSrcs} />
+	}
+	_renderSwitch(kind, channelTitle, channelId, videoTitle, imgSrcs, publishedAt, description, id, key, sizeAvatar) {
+		switch (kind) {
+			case "youtube#channel" :
+				return this._renderChannelCard(channelTitle, channelId, imgSrcs);
+			default :
+				return this._renderVideoCard(channelTitle, channelId, videoTitle, imgSrcs, publishedAt, description, id, key, sizeAvatar)
+
+		}
+	}
+	_renderList(listVideos, type) {
 		return listVideos.map(videoDetails => {
-			const channelTitle = videoDetails.snippet.channelTitle;
-			const channelId = videoDetails.snippet.channelId;
-		  const videoTitle = videoDetails.snippet.title;
-		  const imgSrcs = videoDetails.snippet.thumbnails;
-		  const publishedAt = videoDetails.snippet.publishedAt;
-		  const description = videoDetails.snippet.description;
-		  const id = videoDetails.id;
+			const {channelTitle, channelId, title: videoTitle, thumbnails: imgSrcs, publishedAt, description} = videoDetails.snippet;
+		  const id = type === "search" ? videoDetails.id.videoId : videoDetails.contentDetails.upload.videoId;
+		  const key = videoDetails.id;
+		  const kind = videoDetails.id.kind;
 		  const sizeAvatar = "medium"
 			return <div className={`col-sm-12 col-md-6 col-lg-3 ${style.colVideo}`}>
-				{this._renderVideoCard(channelTitle, channelId, videoTitle, imgSrcs, publishedAt, description, id, sizeAvatar)}
+				{this._renderSwitch( kind, channelTitle, channelId, videoTitle, imgSrcs, publishedAt, description, id, key, sizeAvatar)}
 			</div>
 		})
 	}
 	render() {
-		const { listVideos } = this.props;
+		const { listVideos, type } = this.props;
 		return (
 			<div className="ListVideo">
 				<div className="row">
-					{this._renderList(listVideos)}
+					{this._renderList(listVideos, type)}
 				</div>
 			</div>
 		)
 	}
 }
 ListVideo.propTypes = {
-	listVideos: PropTypes.array
+	listVideos: PropTypes.array,
+	type: PropTypes.string,
 }
 // render() {
 	// 	const { path, url } = this.props

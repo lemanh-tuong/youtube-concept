@@ -1,6 +1,3 @@
-@import './reset';
-@import './icon';
-@import './helper';
 * {
 	padding: 0;
 	margin: 0;
@@ -34,14 +31,8 @@ button {
 	overflow: hidden;
 }
 body .App.dark {
-  & div, span{
-    background: black;
+  & .side-bar, .main-content {
+    blackground: black;
     color: white;
-  }
-  & a {
-  	color: lightgrey!important;
-  }
-  & #youtube-paths path{
-  	fill: white;
   }
 }

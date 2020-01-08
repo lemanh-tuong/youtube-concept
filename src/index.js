@@ -7,19 +7,24 @@ import SideBar from './containers/SideBar/SideBar';
 import MainContent from './containers/MainContent/MainContent';
 import './styles/styles.scss';
 class App extends Component {
-
 	render() {
 		return(
-		<AppProvider>
-			<Router>
-				<div className="App">
+			<AppProvider>
+				<Router>
 					<AppContext.Consumer>
-						{({openMenu, onClickToggleMenu}) => <SideBar openMenu={openMenu} onClickToggleMenu={onClickToggleMenu} />}
+						{({settings}) => {
+							return (
+								<div className={`App ${settings.darkMode ? 'dark' : ''}`}>
+									<AppContext.Consumer>
+										{({openMenu, onClickToggleMenu}) => <SideBar openMenu={openMenu} onClickToggleMenu={onClickToggleMenu} />}
+									</AppContext.Consumer>
+									<MainContent />
+								</div>
+							)
+						}}
 					</AppContext.Consumer>
-					<MainContent />
-				</div>
-			</Router>
-		</AppProvider>
+				</Router>
+			</AppProvider>
 		)
 	}
 }

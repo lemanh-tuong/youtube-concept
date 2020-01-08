@@ -1,4 +1,4 @@
-@import '../../styles/styles';
+@import '../../styles/abstracts';
 .videoCard {
 	margin-bottom: 20px;
 	& .header {
@@ -38,9 +38,12 @@
 	margin-bottom: 8px;
 	& .left {
 		margin-right: 8px;
-	    height: 94px;
-	    width: 168px;
 	    flex: none;
+	    & .img {
+	    	height: 94px;
+	    	width: 168px;
+	    	overflow: hidden;
+	    }
 	}
 	& .right {
 		& .videoName {

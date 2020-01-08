@@ -1,0 +1,58 @@
+.NotFoundPage {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: #212121;
+    z-index: 10000;
+    & img {
+        width: 144px;
+        height: 144px;
+    }
+    & * {
+        user-select: none;
+    }
+}
+.title{
+    text-align: center;
+    color: white;
+    font-size: 63pt;
+}
+.error{
+    background-color: #f15f5f;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%,-50%);
+    text-align: center;
+    padding: 20px;
+    @media (min-width: 992px) {
+    	width: 50%;
+    }
+}
+.message {
+    color: white;
+    margin: 5px 0;
+    font-size: 16pt;
+}
+.link{
+    text-decoration: none;
+    text-align: center;
+}
+.btn{
+    position: relative;
+   padding: 10px 0;
+    width: 425px;
+    color: #fff;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 18pt;
+    border: 2px solid white;
+    border-radius: 10px;
+    transition: .4s;
+}
+.btn:hover{
+    background-color: #fff;
+    color: #f15f5f;
+}

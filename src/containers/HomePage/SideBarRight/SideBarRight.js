@@ -4,7 +4,6 @@ import { AppContext } from '../../../AppProvider';
 import VideoCard from '../../../components/VideoCard/VideoCard';
 import TopChannel from '../../../components/TopChannel/TopChannel';
 import style from './SideBarRight.module.scss';
-
 const listTopChannel = [
 	{
 		name: "LEGO",
@@ -33,21 +32,17 @@ const listTopChannel = [
 ]
 class SideBarRight extends PureComponent {
 	_renderVideoCard(data) {
-		const channelTitle = data[0].snippet.channelTitle;
-		const channelId = data[0].snippet.channelId;
-	  const videoTitle = data[0].snippet.title;
-	  const imgSrcs = data[0].snippet.thumbnails;
-	  const publishedAt = data[0].snippet.publishedAt;
-	  const description = data[0].snippet.description;
-	  const videoId = data[0].id;
-		return <VideoCard 
+	const { channelTitle, channelId, title: videoTitle, thumbnails: imgSrcs, publishedAt, description} = data[0].snippet;
+	const key = data[0].id;
+	const videoId = data[0].contentDetails.upload.videoId;
+		return <VideoCard
 		channelTitle={channelTitle}
 		channelId={channelId}
 		videoTitle={videoTitle}
 		imgSrcs={imgSrcs}
 		publishedAt={publishedAt}
 		description={description}
-		key={videoId}
+		key={key}
 		videoId={videoId}
 		withDesc
 		withAvatar
@@ -55,11 +50,11 @@ class SideBarRight extends PureComponent {
 		/>
 	}
 	_renderListTopChannel() {
-		return listTopChannel.map(channelDetails => this._renderTopChannel(channelDetails))
+		return listTopChannel.map((channelDetails, index) => this._renderTopChannel(channelDetails, index))
 	}
-	_renderTopChannel(channelDetails) {
+	_renderTopChannel(channelDetails, key) {
 		const { name, contact } = channelDetails;
-		return <div className={style.channel}><TopChannel channelName={name} channelSubscribe={contact} /></div>
+		return <div className={style.channel}><TopChannel channelName={name} channelSubscribe={contact} key={key}/></div>
 	}
 	render() {
 		return (

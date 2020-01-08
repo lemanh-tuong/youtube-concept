@@ -11,7 +11,7 @@ class VideoCard extends Component {
 				{desc}
 			</div>
 		)
-	} 
+	}
 	_renderAvatar(channelId, sizeAvatar) {
 		return (
 			<div className={`${style.channel} ${style[sizeAvatar]}`}>
@@ -21,7 +21,7 @@ class VideoCard extends Component {
 	}
 	_renderVideoCard(props) {
 		const { channelTitle, channelId, videoTitle, imgSrcs, publishedAt, description, videoId, withDesc, withAvatar, sizeAvatar } = props;
-		const imgMaxRes = imgSrcs.maxres.url;
+		const imgHigh = imgSrcs.high.url;
 		return (
 			<div className={style.videoCard}>
 				<div className={style.header}>
@@ -29,8 +29,8 @@ class VideoCard extends Component {
 						<AppContext.Consumer>
 							{({onClickWatchVideo}) => {
 								return (
-									<Link to={`/watch`} onClick={onClickWatchVideo({channelTitle, channelId, videoTitle, imgSrcs, publishedAt, description, videoId})}>
-										<img src={imgMaxRes} alt="Img" />
+									<Link to={`/watch?v=${videoId}`} onClick={onClickWatchVideo({channelTitle, channelId, videoTitle, imgSrcs, publishedAt, description, videoId})}>
+										<img src={imgHigh} alt="Img" />
 									</Link>
 								)
 							}}
@@ -43,7 +43,7 @@ class VideoCard extends Component {
 						<Link to={`/channel/${channelId}`}>{channelTitle}</Link>
 					</div>
 					<div className={style.videoName}>
-						<Link to={`/video/${videoId}`} className={style.link}>{videoTitle}</Link>
+						<Link to={`/watch?v=${videoId}`} className={style.link}>{videoTitle}</Link>
 					</div>
 					{withDesc && this._renderDesc(description)}
 				</div>
@@ -66,17 +66,16 @@ class VideoCard extends Component {
 	}
 	_renderVideoCard2(props) {
 		const { channelTitle, channelId, videoTitle, imgSrcs, publishedAt, description, videoId } = props;
-		console.log(description)
-		const imgMaxRes = imgSrcs.maxres.url;
+		const imgHigh = imgSrcs.high.url;
 		return (
 			<div className={style.videoCard2}>
 				<div className={style.left}>
-					<div className="img">
+					<div className={style.img}>
 						<AppContext.Consumer>
 							{({onClickWatchVideo}) => {
 								return (
-									<Link to={`/watch`} onClick={onClickWatchVideo({channelTitle, channelId, videoTitle, imgSrcs, publishedAt, description, videoId})}>
-										<img src={imgMaxRes} alt="Img" />
+									<Link to={`/watch?v=${videoId}`} onClick={onClickWatchVideo({channelTitle, channelId, videoTitle, imgSrcs, publishedAt, description, videoId})}>
+										<img src={imgHigh} alt="Img" />
 									</Link>
 								)
 							}}
@@ -85,7 +84,15 @@ class VideoCard extends Component {
 				</div>
 				<div className={style.right}>
 					<div className={style.videoName}>
-							<Link to={`/video/${videoId}`} className={style.link}>{videoTitle}</Link>
+						<AppContext.Consumer>
+							{({onClickWatchVideo}) => {
+								return (
+									<Link className={style.link} to={`/watch?v=${videoId}`} onClick={onClickWatchVideo({channelTitle, channelId, videoTitle, imgSrcs, publishedAt, description, videoId})} >
+										{videoTitle}
+									</Link>
+								)}
+							}
+						</AppContext.Consumer>
 					</div>
 					<div className={style.channelName}>
 						<Link to={`/channel/${channelId}`}>{channelTitle}</Link>

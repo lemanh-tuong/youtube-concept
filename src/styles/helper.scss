@@ -1,0 +1,15 @@
+$numbers: (0,1,2,3,4,5,6);
+@each $number in $numbers {
+  body .mr-#{$number} {
+    margin-right: calc(#{$number}px * 10)!important;
+  }
+  body .mt-#{$number} {
+    margin-top: calc(#{$number}px * 10)!important;
+  }
+  body .ml-#{$number} {
+    margin-left: calc(#{$number}px * 10)!important;
+  }
+  body .mb-#{$number} {
+    margin-bottom: calc(#{$number}px * 10)!important;
+  }
+}

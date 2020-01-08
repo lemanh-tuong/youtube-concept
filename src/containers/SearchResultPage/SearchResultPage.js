@@ -8,11 +8,11 @@ class SearchResultPage extends Component {
 			<div className={style.SearchResultPage}>
 				<AppContext.Consumer>
 		    		{({searchVideos}) => {
-		    			return searchVideos ? <ListVideo listVideos={searchVideos} /> : <div>Loading</div>
+		    			return searchVideos ? <ListVideo listVideos={searchVideos} type="search" /> : <div>Loading</div>
 		    		}}
 		    	</AppContext.Consumer>
 		    </div>
-		)	
+		)
 	}
 }
 export default SearchResultPage;

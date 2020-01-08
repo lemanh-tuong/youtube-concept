@@ -1,5 +1,7 @@
 import React, { PureComponent } from "react";
-import getVideo from "./axios/getVideo";
+import { getVideo, getVideoSearch, getVideoById } from "./axios/getVideo";
+import LoadingPage from './containers/LoadingPage/LoadingPage';
+import ErrorPage from './containers/ErrorPage/ErrorPage';
 function getQuery(stringQuery, queryName) {
   const listQuery = stringQuery.substring(1).split("&");
   const queries = listQuery.map(query => {
@@ -23,14 +25,13 @@ class AppProvider extends PureComponent {
     msg: "",
     searchVideos: [],
     watchingVideo: {
-      videoTitle: "A",
-      channelTitle: "B",
-      publishedAt: "5 thg 3, 2017",
-      imgSrcs: {
-        maxres: {
-          url: "https://i.ytimg.com/vi/DQGSZTxLVrI/maxresdefault.jpg"
-        }
-      }
+      videoTitle: "",
+      channelTitle: "",
+      publishedAt: "",
+      imgSrcs: {},
+      viewCount: 0,
+      likeCount: 0,
+      commentCount: 0
     },
     openMenu: false,
     autoContinuing: false,
@@ -41,7 +42,12 @@ class AppProvider extends PureComponent {
     }
   };
   componentDidMount() {
+    const stringQuery = window.location.search;
+    const querySearch = getQuery(stringQuery, "q");
+    const queryWatch = getQuery(stringQuery, "v")
     this._handleGetVideo();
+    this._handleGetVideoSearch(querySearch[0]);
+    this._handleGetVideoById(queryWatch[0])
   }
   componentDidUpdate() {
     if(this.state.settings.darkMode) {
@@ -78,7 +84,7 @@ class AppProvider extends PureComponent {
     })
   }
 
-  //Choose
+  //Setting
   _handleChooseOption = (type, option) => {
     return () => {
       if (type === "font-size") {
@@ -107,25 +113,18 @@ class AppProvider extends PureComponent {
   };
 
   //Submit
-  _handleSubmitSearch = (keyword, ref) => {
+  _handleSubmitSearch = (keywords) => {
     return () => {
-      const { data } = this.state;
-      const query = keyword;
-      const newListVideo = filterVideo(data, query);
-      console.log(newListVideo);
-      this.setState(state => {
-        return {
-          ...state,
-          searchVideos: [...newListVideo]
-        };
-      });
-      ref.current.value = "";
+    	console.log("A")
+      this._handleGetVideoSearch(keywords);
     };
   };
+
   _handleSubmitComment = (content) => {
     console.log(content);
   }
 
+  //
   _handleWatchVideo = (videoDetails) => {
     const { channelTitle, channelId, videoTitle, imgSrcs, publishedAt, description, videoId } = videoDetails
     return () => {
@@ -146,6 +145,8 @@ class AppProvider extends PureComponent {
       })
     }
   }
+
+  // GET VIDEO
   _handleGetVideo = async () => {
     this.setState(state => {
       return {
@@ -155,15 +156,11 @@ class AppProvider extends PureComponent {
     });
     try {
       const data = await getVideo();
-      const stringQuery = window.location.search;
-      const query = getQuery(stringQuery, "q");
-      const newListVideo = filterVideo(data, query);
       this.setState(state => {
         return {
           ...state,
           status: "success",
           data: [...data],
-          searchVideos: [...newListVideo]
         };
       });
     } catch (err) {
@@ -176,6 +173,78 @@ class AppProvider extends PureComponent {
       });
     }
   };
+  _handleGetVideoSearch = async (keywords) => {
+    this.setState(state => {
+      return {
+        ...state,
+        status: "loading",
+        searchVideos: []
+      }
+    })
+    try {
+      const data = await getVideoSearch(keywords);
+      this.setState(state => {
+        return {
+          ...state,
+          status: "success",
+          searchVideos: [...data]
+        };
+      });
+    } catch(err) {
+      this.setState(state => {
+        return {
+          ...state,
+          msg: err
+        }
+      })
+    }
+  }
+  _handleGetVideoById = async (videoId) => {
+    this.setState(state => {
+      return {
+        ...state,
+        status: "loading"
+      }
+    })
+    try {
+      const data = await getVideoById(videoId);
+      const { channelTitle, channelId, title: videoTitle, thumbnails: imgSrcs, publishedAt, description} = data[0].snippet;
+      const { viewCount, likeCount, dislikeCount, commentCount} = data[0].statistics;
+      this.setState(state => {
+        return {
+          ...state,
+          status: "success",
+          watchingVideo: {
+            channelTitle,
+            channelId,
+            videoTitle,
+            imgSrcs,
+            description,
+            viewCount,
+            likeCount,
+            dislikeCount,
+            commentCount
+          }
+        };
+      });
+    } catch(err) {
+      this.setState(state => {
+        return {
+          ...state,
+          msg: err
+        }
+      })
+    }
+  }
+
+  _renderSwitch() {
+  	const { status } = this.state;
+  	switch (status) {
+  		case "loading": return <LoadingPage />
+  		case "success": return this.props.children
+  		default: return <ErrorPage />
+  	}
+  }
   render() {
     return (
       <AppContext.Provider
@@ -190,7 +259,7 @@ class AppProvider extends PureComponent {
           onClickWatchVideo: this._handleWatchVideo
         }}
       >
-        {this.state.data && this.props.children}
+        {this._renderSwitch()}
       </AppContext.Provider>
     );
   }

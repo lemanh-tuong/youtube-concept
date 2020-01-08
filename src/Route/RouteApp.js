@@ -2,6 +2,8 @@ import React from 'react';
 import WatchPage from '../containers/WatchPage/WatchPage';
 import HomePage from '../containers/HomePage/HomePage';
 import SearchResultPage from '../containers/SearchResultPage/SearchResultPage';
+import NotFoundPage from '../containers/NotFoundPage/NotFoundPage';
+import SettingPage from '../containers/SettingPage/SettingPage';
 const routeApp = [
 	{
 		id: 1,
@@ -19,6 +21,17 @@ const routeApp = [
 		id:3,
 		path: '/search',
 		render: () => <SearchResultPage />,
+		exact: false
+	},
+	{
+		id: 4,
+		path: '/setting',
+		render: () => <SettingPage />,
+		exact: true
+	},
+	{
+		id: 5,
+		render: () => <NotFoundPage />,
 		exact: false
 	}
 ]

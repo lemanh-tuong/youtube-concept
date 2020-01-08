@@ -36,7 +36,7 @@ class VideoDetails extends PureComponent {
 	}
 	render() {
 		const { showMore, subscribed } = this.state;
-		const { imgSrc, videoName, videoId, channelTitle, channelId, viewCount, publishedAt, description, withTags, tagsList} = this.props;
+		const { imgSrc, videoName, videoId, channelTitle, channelId, viewCount, likeCount, dislikeCount, commentCount, publishedAt, description, withTags, tagsList} = this.props;
 		const text = `Lorem Ipsum is simply dummy text of the printing and typesetting industry.
 										 Lorem Ipsum has been the industry's standard dummy text ever since the 1500s,
 										 when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries,
@@ -76,11 +76,11 @@ class VideoDetails extends PureComponent {
 										<div className={style.buttonsNormal}>
 											<button className={style.buttonNormal}>
 												<i class="fas fa-thumbs-up"></i>
-												24N
+												{likeCount}
 											</button>
 											<button className={style.buttonNormal}>
 												<i class="fas fa-thumbs-down"></i>
-												24N
+												{dislikeCount}
 											</button>
 											<button className={style.buttonNormal}>
 												<i class="fas fa-share"></i>
@@ -125,7 +125,10 @@ VideoDetails.propTypes = {
 	videoId: PropTypes.string,
 	channelTitle: PropTypes.string,
 	channelId: PropTypes.string,
-	viewCount: PropTypes.string,
+	viewCount: PropTypes.number,
+	likeCount: PropTypes.number,
+	dislikeCount: PropTypes.number,
+	commentCount: PropTypes.number,
 	publishedAt: PropTypes.string,
 	description: PropTypes.string,
 	withTags: PropTypes.bool,

@@ -1,0 +1,71 @@
+@import '../../styles/abstracts';
+.SettingPage {
+	width: 100%;
+	padding: 140px 0;
+	@media (min-width: 768px) {
+		width: 85%;
+		margin-left: 15%;
+	}
+}
+.container {
+	margin: 0px 85px;
+}
+.col6 {
+    float: left;
+    position: relative;
+    padding: 0 60px;
+	@media (min-width: 768px) {
+		width: 50%;
+	}
+}
+.header {
+	margin-bottom: 50px;
+}
+
+.body {
+	& .bodyContent {
+		margin-left: -45px;
+	}
+}
+.titleBig {
+	font-size: 26px;
+	font-weight: bold;
+	position: relative;
+	padding-bottom: 15px;
+	&:before {
+		content: '';
+		position: absolute;
+		width: 77px;
+		height: 3px;
+		bottom: 0;
+		left: 0;
+		background: lightgreen;
+	}
+}
+.titleMd {
+    font-size: 20px;
+    font-weight: bold;
+}
+.titleSm {
+	font-size: 14px;
+    font-weight: bold;
+    color: $color-text-dark;
+}
+
+.option {
+	margin-bottom: 25px;
+	& .optionContent {
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+	}
+	& .optionName {
+		color: $color-text-dark;
+		font-weight: bold;
+		font-size: 14px;
+	}
+}
+
+.optionHeader {
+	margin-bottom: 50px;
+}

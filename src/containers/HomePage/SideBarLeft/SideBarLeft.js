@@ -13,8 +13,8 @@ class SideBarLeft extends PureComponent {
 	  const imgSrcs = data[0].snippet.thumbnails;
 	  const publishedAt = data[0].snippet.publishedAt;
 	  const description = data[0].snippet.description;
-	  const videoId = data[0].id;
-		return <VideoCard 
+	  const videoId = data[0].contentDetails.upload.videoId;
+		return <VideoCard
 		channelTitle={channelTitle}
 		channelId={channelId}
 		videoTitle={videoTitle}
@@ -56,7 +56,9 @@ class SideBarLeft extends PureComponent {
 								</div>
 							</div>
 							<div className="header__slide">
-								<Slide />
+								<AppContext.Consumer>
+									{({data}) => <Slide listVideos={data}/>}
+								</AppContext.Consumer>
 							</div>
 						</div>
 						<div className="col-sm-6">
