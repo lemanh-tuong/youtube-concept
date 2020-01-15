@@ -3,29 +3,30 @@ import PropTypes from 'prop-types';
 import Avatar from '../Avatar/Avatar';
 import style from './Channel.module.scss';
 class Channel extends Component {
-	render() {
-		const { status, imgSrc, channelName, channelLocation, channelContact } = this.props
+	_renderChannelContent() {
+		const { statusUser, statusRequest, imgSrc, channelName, channelLocation, channelContact } = this.props;
+		const checkStatusRequest = statusRequest === "loading" ? style.loading : null
 		return (
-			<div className={style.channel}>
+			<div className={`${style.channel} ${checkStatusRequest}`}>
 				<div className={style.header}>
-					<Avatar status={status} />
+					<Avatar statusRequest={statusRequest} imgSrc={imgSrc} statusUser={statusUser} size="big"/>
 				</div>
 				<div className={style.body}>
 					<div className={style.name}>
-						Nannie Neison
+						{ statusRequest === "success" ? channelName : "channelName"}
 					</div>
 					<div className={style.location}>
-						Montreal, QC
+						{ statusRequest === "success" ? "Montreal, QC" : "channelLocation"}
 					</div>
 				</div>
 				<div className={style.footer}>
 					<div className={style.contact}>
 						<div className={style.item}>
-							<div className={style.ammount}>278</div>
+							<div className={style.ammount}>{statusRequest === "success" ? 278 : 0}</div>
 							<div className={style.nameContact}>Videos</div>
 						</div>
 						<div className={style.item}>
-							<div className={style.ammount}>36.5K</div>
+							<div className={style.ammount}>{statusRequest === "success" ? 278 : 0}</div>
 							<div className={style.nameContact}>Subcribers</div>
 						</div>
 					</div>
@@ -33,12 +34,25 @@ class Channel extends Component {
 			</div>
 		)
 	}
+	render() {
+		return this._renderChannelContent();
+	}
 }
 Channel.propTypes = {
-	status: PropTypes.string,
+	statusUser: PropTypes.string,
+	statusRequest: PropTypes.string,
 	imgSrc: PropTypes.string,
 	channelName: PropTypes.string,
-	channelLocation: PropTypes.string,
-	channelContact: PropTypes.array
+	viewCount: PropTypes.string,
+	videoCount: PropTypes.string,
+}
+Channel.defaultProps = {
+	statusUser: '',
+	statusRequest: "success",
+	imgSrc: '',
+	channelName: '',
+	videoCount: '0',
+	videoCount: '0',
+
 }
 export default Channel;

@@ -1,8 +1,9 @@
 @import '../../styles/abstracts';
+@import '../../styles/animation';
 .videoCard {
 	margin-bottom: 20px;
 	& .header {
-		position: relative
+		position: relative;
 	}
 	& .body, .footer {
 		padding: 8px 4px;
@@ -10,7 +11,7 @@
 	& .body {
 		& .channelName {
 			margin-bottom: 10px;
-			& a {	
+			& a {
 				color: $text-color-light;
 				font-size: $text-sm;
 			}
@@ -81,10 +82,13 @@
 		    flex-wrap: wrap;
 		}
 	}
-    
+
+}
+.channelName {
+	margin-bottom: 4px;
 }
 
-.channel {
+.channelAvatar {
    position: absolute;
    bottom: 0;
    transform: translateY(50%);
@@ -99,11 +103,11 @@
    }
 }
 
-
 .desc {
 	font-size: $text-sm;
 	color: $text-color-light;
 	margin-bottom: 10px;
+	min-height: 200px;
 }
 .contact {
 	display: flex;
@@ -116,4 +120,52 @@
 	&:not(:last-child) {
 		margin-right: 20px;
 	}
+}
+
+.loading {
+	& .img {
+		min-height: 135px;
+		max-height: 372px;
+	}
+  & .header, .body, .footer {
+  	padding: 8px 4px;
+  }
+	& .img, .channelName, .videoName, .desc, .contact {
+		@include background-gradient();
+		animation: shine-image $animation-duration infinite ease-out;
+	}
+	& .channelName, .videoName {
+		& a {
+			color: transparent!important;
+		}
+	}
+	& .contact, .desc {
+		& span {
+			color: transparent!important;
+		}
+	}
+}
+.loadingRow {
+	& * {
+		color: transparent!important;
+	}
+	& .right {
+		flex: auto;
+	}
+	& .img {
+		height: 126px;
+	}
+	& .img, .channelName, .videoName, .desc, .contact {
+		@include background-gradient();
+		animation: shine-image $animation-duration infinite ease-out;
+	}
+}
+
+@keyframes :local(shine-image) {
+  0% {
+    background-position: 0px;
+  }
+  40%, 100% {
+    background-position: 500px;
+  }
 }

@@ -26,17 +26,19 @@ class VideoDetails extends PureComponent {
 		})
 	}
 	_renderTags(tagsList) {
-		return tagsList.map(tagContent => this._renderTag(tagContent))
+		return tagsList.map((tagContent, index) => this._renderTag(tagContent, index))
 	}
-	_renderTag(tagContent) {
-		return <Link to={`/search/?q=${tagContent}`} className="tag">#{tagContent}</Link>
+	_renderTag(tagContent, key) {
+		return <Link to={`/search/?q=${tagContent}`} className="tag" key={key}>#{tagContent}</Link>
 	}
 	_renderTagsListComponent(tagsList) {
 		return <div className="tags">{this._renderTags(tagsList)}</div>
 	}
+	componentDidMount() {
+	}
 	render() {
 		const { showMore, subscribed } = this.state;
-		const { imgSrc, videoName, videoId, channelTitle, channelId, viewCount, likeCount, dislikeCount, commentCount, publishedAt, description, withTags, tagsList} = this.props;
+		const { publishedAt, channelId, videoName, description, imgSrc, channelTitle, tagsList, withTags, viewCount, likeCount, dislikeCount, favoriteCount, commentCount, statusRequest} = this.props;
 		const text = `Lorem Ipsum is simply dummy text of the printing and typesetting industry.
 										 Lorem Ipsum has been the industry's standard dummy text ever since the 1500s,
 										 when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries,
@@ -44,11 +46,11 @@ class VideoDetails extends PureComponent {
 										  remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages,
 										   and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.`
 		return (
-			<div className="VideoDetails">
+			<div className={style.loading}>
 				<div className="header">
 					<div className="VideoDetails__video">
-						<div className="player">
-							<img src={imgSrc} alt="player" />
+						<div className={style.player}>
+							{ statusRequest === "success" && <img src={imgSrc} alt="player" />}
 						</div>
 					</div>
 				</div>
@@ -64,7 +66,7 @@ class VideoDetails extends PureComponent {
 											{viewCount} Lượt xem
 										</div>
 									</div>
-									<div className={style.dot}> 
+									<div className={style.dot}>
 										-
 									</div>
 									<div className="date">
@@ -75,19 +77,19 @@ class VideoDetails extends PureComponent {
 									<div className="menu">
 										<div className={style.buttonsNormal}>
 											<button className={style.buttonNormal}>
-												<i class="fas fa-thumbs-up"></i>
+												<i className="fas fa-thumbs-up"></i>
 												{likeCount}
 											</button>
 											<button className={style.buttonNormal}>
-												<i class="fas fa-thumbs-down"></i>
+												<i className="fas fa-thumbs-down"></i>
 												{dislikeCount}
 											</button>
 											<button className={style.buttonNormal}>
-												<i class="fas fa-share"></i>
+												<i className="fas fa-share"></i>
 												Chia sẻ
 											</button>
 											<button className={style.buttonNormal}>
-												<i class="fas fa-list"></i>
+												<i className="fas fa-list"></i>
 												Lưu
 											</button>
 										</div>
@@ -101,7 +103,9 @@ class VideoDetails extends PureComponent {
 					<div className="footer__container">
 						<div className={style.footerContent}>
 							<div className={style.top}>
-								<TopChannel channelName={channelTitle} channelSubscribe="6.2M" />
+								<div className="channel">
+									<TopChannel channelName={channelTitle} statusRequest={statusRequest} />
+								</div>
 								<SubscribeButton subscribed={subscribed} onEventClick={this._handleSubscribe}/>
 							</div>
 							<div className="info2">
@@ -120,17 +124,18 @@ class VideoDetails extends PureComponent {
 	}
 }
 VideoDetails.propTypes = {
-	imgSrc: PropTypes.string,
-	videoName: PropTypes.string,
-	videoId: PropTypes.string,
-	channelTitle: PropTypes.string,
-	channelId: PropTypes.string,
-	viewCount: PropTypes.number,
-	likeCount: PropTypes.number,
-	dislikeCount: PropTypes.number,
-	commentCount: PropTypes.number,
 	publishedAt: PropTypes.string,
+	channelId: PropTypes.string,
+	videoTitle: PropTypes.string,
 	description: PropTypes.string,
+	imgSrc: PropTypes.string,
+	channelTitle: PropTypes.string,
+	viewCount: PropTypes.string,
+	likeCount: PropTypes.string,
+	dislikeCount: PropTypes.string,
+	favoriteCount: PropTypes.string,
+	commentCount: PropTypes.string,
+	statusRequest: PropTypes.string,
 	withTags: PropTypes.bool,
 	tagsList: PropTypes.array,
 }

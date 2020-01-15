@@ -1,32 +1,19 @@
-import React, { Component } from 'react';
-import ReactDOM from 'react-dom';
-import { BrowserRouter as Router } from "react-router-dom";
-import AppProvider from './AppProvider';
-import { AppContext } from './AppProvider';
-import SideBar from './containers/SideBar/SideBar';
-import MainContent from './containers/MainContent/MainContent';
-import './styles/styles.scss';
-class App extends Component {
-	render() {
-		return(
-			<AppProvider>
-				<Router>
-					<AppContext.Consumer>
-						{({settings}) => {
-							return (
-								<div className={`App ${settings.darkMode ? 'dark' : ''}`}>
-									<AppContext.Consumer>
-										{({openMenu, onClickToggleMenu}) => <SideBar openMenu={openMenu} onClickToggleMenu={onClickToggleMenu} />}
-									</AppContext.Consumer>
-									<MainContent />
-								</div>
-							)
-						}}
-					</AppContext.Consumer>
-				</Router>
-			</AppProvider>
-		)
-	}
-}
-
-ReactDOM.render(<App />, document.getElementById("root"))
+import React from "react";
+import { BrowserRouter as Router } from 'react-router-dom';
+import { render } from "react-dom";
+import axios from "axios";
+import App from './containers/App';
+import { Provider } from "react-redux";
+import { PersistGate } from "redux-persist/lib/integration/react";
+import { store, persistor } from "./configureStore";
+import './styles/reset.scss';
+import './styles/helper.scss';
+axios.defaults.baseURL = "https://www.googleapis.com/youtube/v3/";
+render(
+  <Provider store={store}>
+    <PersistGate loading={null} persistor={persistor}>
+    	<App />
+    </PersistGate>
+  </Provider>,
+  document.getElementById("root")
+);

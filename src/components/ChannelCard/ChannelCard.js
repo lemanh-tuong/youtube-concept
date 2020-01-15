@@ -1,30 +1,25 @@
 import React, { PureComponent } from 'react';
 import { Link } from 'react-router-dom'
 import PropTypes from 'prop-types';
-import { AppContext } from '../../AppProvider';
 import style from './ChannelCard.module.scss';
 class ChannelCard extends PureComponent {
 	render() {
-		const { channelTitle, channelId, imgSrcs } = this.props;
-		const imgHigh = imgSrcs.high.url;
+		const { channelTitle, channelId, description, imgSrc } = this.props;
 		return (
 			<div className={style.ChannelCard}>
 				<div className={style.header}>
 					<div className="img">
-						<AppContext.Consumer>
-							{({onClickWatchVideo}) => {
-								return (
-									<Link to={`/user/${channelId}`}>
-										<img src={imgHigh} alt="Img" className={style.channelImg} />
-									</Link>
-								)
-							}}
-						</AppContext.Consumer>
+						<Link to={`/user/${channelId}`}>
+							<img src={imgSrc} alt="Img" className={style.channelImg} />
+						</Link>
 					</div>
 				</div>
 				<div className={style.body}>
 					<div className={style.channelName}>
 						<Link to={`/channel/${channelId}`}>{channelTitle}</Link>
+					</div>
+					<div className={style.channelDesc}>
+						{description}
 					</div>
 				</div>
 			</div>
@@ -34,6 +29,13 @@ class ChannelCard extends PureComponent {
 ChannelCard.propTypes = {
 	channelTitle: PropTypes.string,
 	channelId: PropTypes.string,
-	imgSrcs: PropTypes.object,
+	description: PropTypes.string,
+	imgSrc: PropTypes.string,
+}
+ChannelCard.defaultProps = {
+	channelTitle: '',
+	channelId: '',
+	description: '',
+	imgSrc: ''
 }
 export default ChannelCard;

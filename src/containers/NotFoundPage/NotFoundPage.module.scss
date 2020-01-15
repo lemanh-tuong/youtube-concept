@@ -20,7 +20,7 @@
     font-size: 63pt;
 }
 .error{
-    background-color: #f15f5f;
+    background-color: #f15f5f!important;
     position: absolute;
     left: 50%;
     top: 50%;
@@ -41,8 +41,9 @@
     text-align: center;
 }
 .btn{
+		background: transparent!important;
     position: relative;
-   padding: 10px 0;
+   	padding: 10px 0;
     width: 425px;
     color: #fff;
     left: 50%;
@@ -53,6 +54,6 @@
     transition: .4s;
 }
 .btn:hover{
-    background-color: #fff;
-    color: #f15f5f;
+    background-color: #fff!important;
+    color: #f15f5f!important;
 }

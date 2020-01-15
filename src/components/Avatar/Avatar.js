@@ -6,20 +6,49 @@ class Avatar extends PureComponent {
 		const className = `status${status}`;
 		return <div className={style[className]} />
 	}
-	render() {
-		const {status, size} = this.props;
+	_renderSuccess() {
+		const { statusUser, imgSrc, size} = this.props;
 		const url = "https://yt3.ggpht.com/a-/AAuE7mB3fAbzXqOP6_An4ADb6ykmjTqDbcH38xwvtw=s68-c-k-c0x00ffffff-no-rj-mo"
 		return (
-			<div className={style["avatar"]}>
-					<img className={`${style.image} ${style[size]}`} src={url} alt="Avatar" />
-				{status && this._renderStatus(status)}
+			<div className={`${style.avatar} ${style[size]}`}>
+				<img className={style.image} src={imgSrc ? imgSrc : url} alt="avatar" />
+				{statusUser && this._renderStatus(statusUser)}
 			</div>
 		)
 	}
+	_renderLoading() {
+		const { size } = this.props
+		return (
+			<div className={`${style.avatarLoading} ${style[size]}`}>
+				<div className={style.image} />
+			</div>
+		)
+	}
+	_renderContent() {
+		const { statusRequest } = this.props;
+		switch (statusRequest) {
+			case "success":
+				return this._renderSuccess();
+			case "loading":
+				return this._renderLoading();
+			default:
+				return null;
+		}
+	}
+	render() {
+		return this._renderContent();
+	}
 }
 Avatar.propTypes = {
-	status: PropTypes.string,
+	statusRequest: PropTypes.string,
+	statusUser: PropTypes.string,
 	size: PropTypes.string,
-	srcImg: PropTypes.string
+	imgSrc: PropTypes.string
+}
+Avatar.defaultProps = {
+	statusRequest: "success",
+	statusUser: '',
+	size: 'medium',
+	imgSrc: ''
 }
 export default Avatar

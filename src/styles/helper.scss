@@ -1,4 +1,7 @@
 $numbers: (0,1,2,3,4,5,6);
+.no-wrap {
+	flex-wrap: no-wrap;
+}
 @each $number in $numbers {
   body .mr-#{$number} {
     margin-right: calc(#{$number}px * 10)!important;

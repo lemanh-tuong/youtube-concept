@@ -15,4 +15,5 @@ MoreInfoButton.propTypes = {
 	showMore: PropTypes.bool,
 	onEventClick: PropTypes.func
 }
+
 export default MoreInfoButton;

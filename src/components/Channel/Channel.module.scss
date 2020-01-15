@@ -1,9 +1,12 @@
 @import '../../styles/abstracts.scss';
+@import '../../styles/animation.scss';
 .channel {
 	text-align: center;
 }
 .header {
 	margin-bottom: 10px;
+	display: flex;
+	justify-content:center;
 }
 .body {
 	margin-bottom: 20px;
@@ -41,4 +44,23 @@
 	font-size: $text-sm;
 	font-weight: bold;
 	text-transform: uppercase;
+}
+
+.loading {
+	& .name, .location, .contact {
+		@include background-gradient();
+		animation: shine-image $animation-duration infinite ease-out;
+		color: transparent!important;
+		& div {
+			color: transparent!important;
+		}
+	}
+}
+@keyframes :local(shine-image) {
+  0% {
+    background-position: 0px;
+  }
+  40%, 100% {
+    background-position: 500px;
+	}
 }

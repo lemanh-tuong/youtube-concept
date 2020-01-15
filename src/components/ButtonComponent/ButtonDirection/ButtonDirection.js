@@ -19,4 +19,9 @@ ButtonDirection.propTypes = {
 	content: PropTypes.string,
 	notification: PropTypes.string
 }
+ButtonDirection.defaultProps = {
+	icon: '',
+	content: '',
+	notification: '',
+}
 export default ButtonDirection;

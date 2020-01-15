@@ -1,4 +1,5 @@
 @import '../../styles/abstracts.scss';
+@import '../../styles/animation.scss';
 @mixin status($statusColor) {
     position: absolute;
     width: 8px;
@@ -8,26 +9,29 @@
     border: 2px solid white;
     bottom: 5px;
     right: 5px;
-    background: $statusColor;
+    background: $statusColor!important;
+}
+.avatar, .avatarLoading {
+    border: 5px white solid;
+    border-radius: 50%;
 }
 .image {
-    border-radius: 50%;
-    overflow: hidden;
+		border-radius: 50%;
     display: inline-block;
-    border: 5px white solid;
     box-sizing: initial;
+    width: 100%;
 }
 .big {
-    max-width: 80px;
-    max-height: 80px;
+    width: 80px;
+    height: 80px;
 }
 .medium {
-    max-width: 50px;
-    max-height: 50px;
+    width: 60px;
+    height: 60px;
 }
 .small {
-    max-width: 40px;
-    max-height: 40px;
+    width: 40px;
+    height: 40px;
 }
 .avatar {
 	position: relative;
@@ -49,3 +53,19 @@
         @include status($status-offline);
     }
 }
+
+
+.avatarLoading {
+    @include background-gradient();
+    animation: shine-avatar $animation-duration infinite ease-out;
+}
+
+@keyframes :local(shine-avatar) {
+  0% {
+    background-position: 0px;
+  }
+  40%, 100% {
+    background-position: 50px;
+  }
+}
+

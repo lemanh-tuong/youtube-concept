@@ -14,18 +14,18 @@ const routeApp = [
 	{
 		id:2,
 		path: '/watch/',
-		render: () => <WatchPage />,
+		render: (routerProps) => <WatchPage {...routerProps}/>,
 		exact: false
 	},
 	{
 		id:3,
 		path: '/search',
-		render: () => <SearchResultPage />,
+		render: (routerProps) => <SearchResultPage {...routerProps}/>,
 		exact: false
 	},
 	{
 		id: 4,
-		path: '/setting',
+		path: '/settings',
 		render: () => <SettingPage />,
 		exact: true
 	},
@@ -35,4 +35,5 @@ const routeApp = [
 		exact: false
 	}
 ]
+
 export default routeApp;

@@ -18,13 +18,13 @@ class ListVideo extends Component {
 		sizeAvatar={sizeAvatar}
 		/>
 	}
-	_renderChannelCard(channelTitle, channelId, imgSrcs) {
-		return <ChannelCard channelTitle={channelTitle} channelId={channelId} imgSrcs={imgSrcs} />
+	_renderChannelCard(channelTitle, channelId, description, imgSrcs, key) {
+		return <ChannelCard channelTitle={channelTitle} channelId={channelId} description={description} imgSrcs={imgSrcs} key={key} />
 	}
 	_renderSwitch(kind, channelTitle, channelId, videoTitle, imgSrcs, publishedAt, description, id, key, sizeAvatar) {
 		switch (kind) {
 			case "youtube#channel" :
-				return this._renderChannelCard(channelTitle, channelId, imgSrcs);
+				return this._renderChannelCard(channelTitle, channelId, description, imgSrcs, key);
 			default :
 				return this._renderVideoCard(channelTitle, channelId, videoTitle, imgSrcs, publishedAt, description, id, key, sizeAvatar)
 

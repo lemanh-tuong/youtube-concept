@@ -33,13 +33,13 @@ class Comment extends PureComponent {
 						<div className={style.buttonsNormal}>
 							<div className={style.buttonNormal}>
 								<button className={style.button}>
-									<i class="fas fa-thumbs-up"></i>
+									<i className="fas fa-thumbs-up"></i>
 								</button>
 								24N
 							</div>
 							<div className={style.buttonNormal}>
 								<button className={style.button}>
-									<i class="fas fa-thumbs-down"></i>
+									<i className="fas fa-thumbs-down"></i>
 								</button>
 								24N
 							</div>

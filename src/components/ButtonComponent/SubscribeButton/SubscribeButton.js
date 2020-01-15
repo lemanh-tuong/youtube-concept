@@ -1,9 +1,9 @@
 import React, { PureComponent } from 'react';
-	import PropTypes from 'prop-types';
+import PropTypes from 'prop-types';
 import style from './SubscribeButton.module.scss';
 class SubscribeButton extends PureComponent {
 	static propTypes = {
-		subscribed: PropTypes.string,
+		subscribed: PropTypes.bool,
 		onEventClick: PropTypes.func
 	}
 	render() {

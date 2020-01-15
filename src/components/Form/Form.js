@@ -13,21 +13,21 @@ class Form extends Component {
 		})
 	}
 	render() {
-		const { onSubmit } = this.props;
+		const { onSubmitSearch } = this.props;
 		const { keywords } = this.state;
 		return (
-			<form className={style.form} action={`/search?q=${keywords}`} onSubmit={onSubmit(keywords)}>
+			<form className={style.form} onSubmit={onSubmitSearch(keywords)}>
 				<input type="text"
 				name="q"
 				className={style.formInput}
 				placeholder="Search for videos, stars or authors"
 				onChange={this._handleChange}
 				/>
-				<button type="submit">
+				<button type="submit" onClick={onSubmitSearch(keywords)}>
 					<Link
-					to={`/search?q=${keywords}`}
+					to={`/search/?q=${keywords}`}
 					className={style.formSubmit}
-					onClick={onSubmit(keywords)}>
+					>
 						<i className="fas fa-search"></i>
 					</Link>
 				</button>
@@ -36,6 +36,6 @@ class Form extends Component {
 	}
 }
 Form.propTypes = {
-	onSubmit: PropTypes.func
+	onSubmitSearch: PropTypes.func
 }
 export default Form;

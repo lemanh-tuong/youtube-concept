@@ -46,38 +46,59 @@ class Slide extends Component {
 			}
 		})
 	}
-	_renderVideoCard(channelTitle, channelId, videoTitle, imgSrcs, publishedAt, description, videoId, key) {
-		return (
-			<div className={style.slide}>
-				<VideoCard
-					channelTitle={channelTitle}
-					channelId={channelId}
-					videoTitle={videoTitle}
-					imgSrcs={imgSrcs}
-					publishedAt={publishedAt}
-					description={description}
-					key={videoId}
-					videoId={videoId}
-				/>
-			</div>
-		)
+	_renderVideoCard (channelTitle, channelId, videoTitle , videoId, imgSrc, publishedAt, description, statusRequest = "loading", sizeAvatar = "big", withAvatar = false, withDesc = false) {
+		return <VideoCard
+		channelTitle={channelTitle}
+		channelId={channelId}
+		videoTitle={videoTitle}
+		videoId={videoId}
+		imgSrc={imgSrc}
+		publishedAt={publishedAt}
+		description={description}
+		statusRequest={statusRequest}
+		withDesc={withDesc}
+		withAvatar={withAvatar}
+		sizeAvatar={sizeAvatar}
+		/>
 	}
-	_renderList(listVideo) {
-		return listVideo.map(videoDetails => {
-			const channelTitle = videoDetails.snippet.channelTitle;
-			const channelId = videoDetails.snippet.channelId;
-		  const videoTitle = videoDetails.snippet.title;
-		  const imgSrcs = videoDetails.snippet.thumbnails;
-		  const publishedAt = videoDetails.snippet.publishedAt;
-		  const description = videoDetails.snippet.description;
+	_renderListSuccess = (listVideos, statusRequest) => {
+		return listVideos.map(videoDetails => {
+			const { channelTitle, channelId, title: videoTitle, thumbnails, publishedAt, description } = videoDetails.snippet;
+		  const videoId = videoDetails.contentDetails.upload.videoId;
 		  const key = videoDetails.id;
-		  const id = videoDetails.contentDetails.upload.videoId;
-			return this._renderVideoCard(channelTitle, channelId, videoTitle, imgSrcs, publishedAt, description, id, key)
-
+		  const kind = videoDetails.id.kind;
+		  const sizeAvatar = "medium";
+		  const imgSrc = thumbnails.maxres.url;
+		  const withDesc = false;
+		  const withAvatar = false;
+			return <div className={style.slide} key={key}>
+				{this._renderVideoCard( channelTitle, channelId, videoTitle, videoId, imgSrc, publishedAt, description, statusRequest, sizeAvatar, withAvatar, withDesc )}
+			</div>
 		})
 	}
+	_renderListLoading = () => {
+		const arr = [1,2,3,4,5,6,7,8,9,10,11,12];
+		return arr.map(id => {
+			return (
+				<div className={style.slide} key={id}>
+					{this._renderVideoCard()}
+				</div>
+			)
+		})
+	}
+	_renderContentList = () => {
+		const { listVideos, statusRequest } = this.props;
+		switch (statusRequest) {
+			case "success":
+				return this._renderListSuccess(listVideos, statusRequest);
+			case "loading":
+				return this._renderListLoading();
+			default:
+				return null
+		}
+	}
 	render() {
-		const { listVideos } = this.props;
+		const { listVideos, statusRequest } = this.props;
 		const { currentSlide } = this.state
 		const margin = {
 			transform: `translateX(calc(-${50 * currentSlide}% - ${10 * currentSlide}px))`
@@ -86,7 +107,7 @@ class Slide extends Component {
 			<div className={style.carousel}>
 				<div className={style.slideShow}>
 					<div className={`${style.listImg} ${currentSlide}`} style={margin}>
-						{this._renderList(listVideos)}
+						{this._renderContentList()}
 					</div>
 				</div>
 				<div className={style.prevBtn}>
@@ -105,5 +126,6 @@ class Slide extends Component {
 }
 Slide.propTypes = {
 	listVideos: PropTypes.array,
+	statusRequest: PropTypes.string,
 }
 export default Slide

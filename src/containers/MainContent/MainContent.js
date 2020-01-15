@@ -1,10 +1,12 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import { Switch, Route} from 'react-router-dom';
-import { AppContext } from '../../AppProvider';
-import style from './MainContent.module.scss';
+import getVideoSearch from '../../thunks/thunkGetVideoSearch/thunkGetVideoSearch';
+import { AppContext } from '../../AppProvider/AppProvider';
 import Form from '../../components/Form/Form';
 import ToggleMenuButton from '../../components/ButtonComponent/ToggleMenuButton/ToggleMenuButton';
 import routeApp from '../../Route/RouteApp';
+import style from './MainContent.module.scss';
 class MainContent extends Component {
 	_renderRoute(routes) {
 		return (
@@ -13,18 +15,24 @@ class MainContent extends Component {
 			</Switch>
 		)
 	}
+	_handleSubmitSearch = (querySearch) => {
+		return () => {
+			window.scrollTo(0,0);
+			const { getVideoSearch } = this.props;
+			getVideoSearch(querySearch)
+		}
+	}
 	render() {
+
 		return (
 			<div className={style.mainContent}>
 				<div className={style.header}>
-					<AppContext.Consumer>
-						{({onClickToggleMenu}) => <ToggleMenuButton onClickToggleMenu={onClickToggleMenu} />}
-					</AppContext.Consumer>
-					<div className={style.headerForm}>
 						<AppContext.Consumer>
-							{({onSubmitSearch}) => <Form onSubmit={onSubmitSearch}/>}
+							{({onClickToggleMenu}) => <ToggleMenuButton onClickToggleMenu={onClickToggleMenu} />}
 						</AppContext.Consumer>
-					</div>
+						<div className={style.headerForm}>
+							<Form onSubmitSearch={this._handleSubmitSearch}/>
+						</div>
 				</div>
 				<div className={style.body}>
 					{this._renderRoute(routeApp)}
@@ -33,4 +41,7 @@ class MainContent extends Component {
 		)
 	}
 }
-export default MainContent
+const mapDispatchToProps = {
+	getVideoSearch
+}
+export default connect(null, mapDispatchToProps)(MainContent);

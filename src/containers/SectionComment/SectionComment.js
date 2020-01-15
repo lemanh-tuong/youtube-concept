@@ -1,7 +1,7 @@
 import React, { PureComponent } from 'react';
 import { AppContext } from '../../AppProvider';
-import Comment from '../../components/Comment/Comment';
-import FormComment from '../../components/FormComment/FormComment';
+import Comment from '../Comment/Comment';
+import FormComment from '../FormComment/FormComment';
 import style from './SectionComment.module.scss';
 const replies = [
 	{
@@ -87,14 +87,14 @@ class SectionComment extends PureComponent {
 				<AppContext.Consumer>
 					{({onSubmitComment}) => {
 						return (
-							<FormComment 
-							type="reply" 
-							onEventCli	ck={this._handleUnReplying} 
+							<FormComment
+							type="reply"
+							onEventClick={this._handleUnReplying}
 							onEventSubmit={onSubmitComment}
 							/>
 					)}}
 				</AppContext.Consumer>
-				
+
 			</div>
 		)
 	}

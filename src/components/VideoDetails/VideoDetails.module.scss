@@ -1,3 +1,4 @@
+@import '../../styles/animation.scss';
 .VideoDetails {
 }
 .body {
@@ -63,8 +64,26 @@
     font-size: 14px;
     letter-spacing: .007px;
     text-transform: uppercase;
-    
+
 	& i {
 		padding: 8px;
 	}
 }
+
+.loading {
+	& .player {
+		min-height: 332px;
+		max-height: 532px;
+		@include background-gradient();
+		animation: shine-image $animation-duration infinite ease-out;
+	}
+}
+@keyframes :local(shine-image) {
+  0% {
+    background-position: 0px;
+  }
+  40%, 100% {
+    background-position: 502px;
+  }
+}
+
