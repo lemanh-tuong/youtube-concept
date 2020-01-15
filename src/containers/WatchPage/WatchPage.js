@@ -64,8 +64,8 @@ class WatchPage extends PureComponent {
 		})
 	}
 	_renderListRelatedVideoLoading = () => {
-		const arr = [1,2,3,4,5,6,7,8,9,10,11,12];
-		return arr.map(id => {
+		const { dataVideoRelated } = this.props
+		return dataVideoRelated.map(id => {
 			return this._renderVideoCard()
 		})
 	}
