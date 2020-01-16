@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Link, Redirect } from 'react-router-dom';
+import SuggestionBox from '../SuggestionBox/SuggestionBox';
 import style from './Form.module.scss';
 class Form extends Component {
 	state = {
@@ -8,30 +9,6 @@ class Form extends Component {
 		keywords: '',
 		listSuggestion: [],
 		submit: false
-	}
-	_renderSuggestionBox = () => {
-		return (
-			<div className={style.suggestionBox}>
-				<div className={style.suggestionContent}>
-					<ul className={style.listSuggestion}>
-						{this._renderListSuggestion()}
-					</ul>
-				</div>
-			</div>
-		)
-	}
-	_renderListSuggestion = () => {
-		const suggestions = localStorage.getItem("searched");
-		const listSuggestion = JSON.parse(suggestions);
-		return listSuggestion.map((suggestion, index) => this._renderSuggestion(suggestion, index))
-	}
-	_renderSuggestion = (content, key) => {
-		return (
-			<div className={style.suggestion}  key={key}>
-				<Link to={`?q=${content}`}>{content}</Link>
-				<button className={style.delete} onClick={this._handleRemoveSuggestion(content)}>Xóa</button>
-			</div>
-		)
 	}
 	_handleChange = (e) => {
 		e.persist();
@@ -74,10 +51,12 @@ class Form extends Component {
 	render() {
 		const { onSubmitSearch } = this.props;
 		const { searching, keywords, submit } = this.state;
+		const suggestions = localStorage.getItem("searched");
+		const listSuggestion = JSON.parse(suggestions);
 		return (
 			<React.Fragment>
 				{submit && <Redirect to={`/search?q=${keywords}`}/>}
-				<form className={style.form} onSubmit={this._handleSearch} autocomplete="off">
+				<form className={style.form} onSubmit={this._handleSearch} autoComplete="off">
 					<input type="text"
 					name="q"
 					className={style.formInput}
@@ -95,7 +74,7 @@ class Form extends Component {
 					</button>
 				</form>
 				<div className={style.box}>
-					{ searching && this._renderSuggestionBox()}
+					{ searching && <SuggestionBox listSuggestion={listSuggestion} onEventClickDelete={this._handleRemoveSuggestion} onEventClickSubmit={onSubmitSearch}/>}
 				</div>
 			</React.Fragment>
 		)

@@ -163,7 +163,7 @@ class SideBar extends Component {
 									</AppContext.Consumer>
 									<div className={style.settingsButton}>
 										<Link to="/settings" onClick={onClickToggleMenu}>
-											<i class="fas fa-cog"></i>
+											<i className="fas fa-cog"></i>
 										</Link>
 									</div>
 								</div>

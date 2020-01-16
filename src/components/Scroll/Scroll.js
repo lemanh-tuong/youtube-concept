@@ -32,7 +32,7 @@ class Scroll extends PureComponent {
     return (
       <div ref={this.scrollElem} className="scroll">
         {this.props.children}
-        {this.loader ? this.loader() : this._renderLoadDefault()}
+        {this.props.withLoader && this.props.loader ? this.props.loader() : this._renderLoadDefault()}
       </div>
     );
   }
@@ -40,6 +40,7 @@ class Scroll extends PureComponent {
 Scroll.propTypes = {
   statusRequest: PropTypes.string,
   hasMore: PropTypes.bool,
+  withLoader: PropTypes.bool,
   loader: PropTypes.func,
   next: PropTypes.func,
   nowLength: PropTypes.number,

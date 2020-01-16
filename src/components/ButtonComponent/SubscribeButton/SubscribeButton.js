@@ -1,20 +1,16 @@
-import React, { PureComponent } from 'react';
+import React, { memo } from 'react';
 import PropTypes from 'prop-types';
 import style from './SubscribeButton.module.scss';
-class SubscribeButton extends PureComponent {
-	static propTypes = {
-		subscribed: PropTypes.bool,
-		onEventClick: PropTypes.func
-	}
-	render() {
-		const { subscribed, onEventClick } = this.props;
-		return (
-			<div className="Subscribe">
-				<button onClick={onEventClick} className={`${style.subscribeButton} ${subscribed && style.subscribed}`}>
-					{subscribed ? "Hủy Đăng Ký" : "Đăng ký"}
-				</button>
-			</div>
-		)
-	}
+const SubscribeButton = memo (({ subscribed, onEventClick }) => (
+		<div className="Subscribe">
+			<button onClick={onEventClick} className={`${style.subscribeButton} ${subscribed && style.subscribed}`}>
+				{subscribed ? "Hủy Đăng Ký" : "Đăng ký"}
+			</button>
+		</div>
+))
+
+SubscribeButton.propTypes = {
+	subscribed: PropTypes.bool,
+	onEventClick: PropTypes.func
 }
 export default SubscribeButton;

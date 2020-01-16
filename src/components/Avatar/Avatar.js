@@ -1,44 +1,40 @@
-import React, { PureComponent } from 'react';
+import React, { memo } from 'react';
 import PropTypes from 'prop-types';
 import style from './Avatar.module.scss';
-class Avatar extends PureComponent {
-	_renderStatus(status) {
+
+const Avatar = memo (({statusRequest, statusUser, size, imgSrc}) => {
+	const _renderStatus = (status) => {
 		const className = `status${status}`;
 		return <div className={style[className]} />
 	}
-	_renderSuccess() {
-		const { statusUser, imgSrc, size} = this.props;
-		const url = "https://yt3.ggpht.com/a-/AAuE7mB3fAbzXqOP6_An4ADb6ykmjTqDbcH38xwvtw=s68-c-k-c0x00ffffff-no-rj-mo"
-		return (
-			<div className={`${style.avatar} ${style[size]}`}>
-				<img className={style.image} src={imgSrc ? imgSrc : url} alt="avatar" />
-				{statusUser && this._renderStatus(statusUser)}
-			</div>
-		)
-	}
-	_renderLoading() {
-		const { size } = this.props
+	const _renderLoading = () => {
 		return (
 			<div className={`${style.avatarLoading} ${style[size]}`}>
 				<div className={style.image} />
 			</div>
 		)
 	}
-	_renderContent() {
-		const { statusRequest } = this.props;
+	const _renderSuccess = () => {
+		const url = "https://yt3.ggpht.com/a-/AAuE7mB3fAbzXqOP6_An4ADb6ykmjTqDbcH38xwvtw=s68-c-k-c0x00ffffff-no-rj-mo"
+		return (
+			<div className={`${style.avatar} ${style[size]}`}>
+				<img className={style.image} src={imgSrc ? imgSrc : url} alt="avatar" />
+				{statusUser && _renderStatus(statusUser)}
+			</div>
+		)
+	}
+	const _renderContent = () => {
 		switch (statusRequest) {
 			case "success":
-				return this._renderSuccess();
+				return _renderSuccess();
 			case "loading":
-				return this._renderLoading();
+				return _renderLoading();
 			default:
 				return null;
 		}
 	}
-	render() {
-		return this._renderContent();
-	}
-}
+	return _renderContent();
+})
 Avatar.propTypes = {
 	statusRequest: PropTypes.string,
 	statusUser: PropTypes.string,

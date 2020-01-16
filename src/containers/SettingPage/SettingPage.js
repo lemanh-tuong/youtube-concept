@@ -57,9 +57,17 @@ class SettingPage extends PureComponent{
       </div>
     );
   }
+  _handleGoBack = () => {
+  	this.props.history.goBack();
+  }
 	render() {
 		return (
 			<div className={style.SettingPage}>
+				<div className={style.goBackButton}>
+					<a onClick={this._handleGoBack}>
+						<i className="fas fa-sign-out-alt"></i>
+					</a>
+				</div>
         <div className={style.container}>
           <div className={style.header}>
             <div className={style.title}>

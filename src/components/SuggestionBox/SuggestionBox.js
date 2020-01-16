@@ -1,5 +1,7 @@
 import React, { PureComponent } from 'react';
-
+import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
+import style from './SuggestionBox.module.scss';
 class SuggestionBox extends PureComponent {
 	_renderSuggestionBox = () => {
 		return (
@@ -13,19 +15,29 @@ class SuggestionBox extends PureComponent {
 		)
 	}
 	_renderListSuggestion = () => {
-		const suggestions = localStorage.getItem("searched");
-		const listSuggestion = JSON.parse(suggestions);
-		return listSuggestion.map((suggestion, index) => this._renderSuggestion(suggestion, index))
+		const { listSuggestion, onEventClickDelete, onEventClickSubmit } = this.props;
+		return listSuggestion.map((suggestion, index) => this._renderSuggestion(suggestion, onEventClickDelete, onEventClickSubmit, index))
 	}
-	_renderSuggestion = (content, key) => {
+	_renderSuggestion = (content, onEventClickDelete, onEventClickSubmit, key) => {
 		return (
 			<div className={style.suggestion}  key={key}>
-				<Link to={`/search?q=${content}`}>{content}</Link>
-				<button className={style.delete} onClick={this._handleRemoveSuggestion(content)}>Xóa</button>
+				<Link to={`/search?q=${content}`} onClick={onEventClickSubmit(content)}>{content}</Link>
+				<button className={style.delete} onClick={onEventClickDelete(content)}>Xóa</button>
 			</div>
 		)
 	}
 	render() {
-		return null;
+		return this._renderSuggestionBox();
 	}
 }
+SuggestionBox.propTypes = {
+	listSuggestion: PropTypes.array,
+	onEventClickDelete: PropTypes.func,
+	onEventClickSubmit: PropTypes.func,
+}
+SuggestionBox.defaultProps = {
+	onEventClickDelete: () => null,
+	onEventClickSubmit: () => null,
+	listSuggestion: []
+}
+export default SuggestionBox

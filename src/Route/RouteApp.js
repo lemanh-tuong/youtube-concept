@@ -26,7 +26,7 @@ const routeApp = [
 	{
 		id: 4,
 		path: '/settings',
-		render: () => <SettingPage />,
+		render: (routerProps) => <SettingPage {...routerProps} />,
 		exact: true
 	},
 	{
