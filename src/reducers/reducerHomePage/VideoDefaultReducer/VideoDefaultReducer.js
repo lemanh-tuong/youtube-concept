@@ -15,7 +15,7 @@ const VideoDefaultReducer = (state = initialState, action) => {
 		}
 		case GET_VIDEO_DEFAULT_FAILURE: {
 			return {
-				status: 'failed',
+				status: 'failure',
 				message: action.payload.message
 			}
 		}

@@ -8,13 +8,12 @@ import VideoCard from '../../components/VideoCard/VideoCard';
 import VideoDetails from '../../components/VideoDetails/VideoDetails';
 import ToggleButton from '../../components/ButtonComponent/ToggleButton/ToggleButton';
 import FormComment from '../../components/FormComment/FormComment';
+import ErrorPage from '../ErrorPage/ErrorPage';
 // import SectionComment from '../../components/SectionComment/SectionComment';
 import Scroll from '../../components/Scroll/Scroll';
 import style from './WatchPage.module.scss';
 
 class WatchPage extends PureComponent {
-	stringQuery = window.location.search;
-	queryWatch = getQuery(this.stringQuery, "v")
 	componentDidMount() {
 		window.scrollTo(0,0);
 		console.log("Mouted");
@@ -52,7 +51,9 @@ class WatchPage extends PureComponent {
 		onEventClickWatch={onEventClick}
 		/>
 	}
-	_renderListRelatedVideoSuccess = () => {
+
+	//Related Video
+	_renderListRelatedVideo = () => {
 		const { dataVideoRelated, statusRequestVideoRelated } = this.props
 		return dataVideoRelated.map(videoDetails => {
 			const { channelTitle, channelId, title: videoTitle, thumbnails, publishedAt, description } = videoDetails.snippet;
@@ -63,23 +64,29 @@ class WatchPage extends PureComponent {
 			return this._renderVideoCard(channelTitle, channelId, videoTitle, imgSrc, publishedAt, description, videoId, key, sizeAvatar, statusRequestVideoRelated, this._handleWatchVideo)
 		})
 	}
+	// _renderListRelatedVideoLoading = () => {
+	// 	const { dataVideoRelated } = this.props
+	// 	return dataVideoRelated.map(id => {
+	// 		return this._renderVideoCard()
+	// 	})
+	// }
 	_renderListRelatedVideoLoading = () => {
-		const { dataVideoRelated } = this.props
-		return dataVideoRelated.map(id => {
-			return this._renderVideoCard()
-		})
+		const arr = [1,2,3,4,5];
+		return arr.map(id => this._renderVideoCard());
 	}
 	_renderListRelatedVideoContent = () => {
 		const { statusRequestVideoRelated } = this.props;
 		switch (statusRequestVideoRelated) {
 			case "loading":
-				return this._renderListRelatedVideoLoading();
+				return this._renderListRelatedVideo();
 			case "success":
-				return this._renderListRelatedVideoSuccess();
+				return this._renderListRelatedVideo();
 			default:
 				return null;
 		}
 	}
+
+	// Video Details
 	_renderVideoDetailsSuccess = () => {
 		const { statusRequestVideoWatching } = this.props
 		const { publishedAt, channelId, title, description, thumbnails, channelTitle, tags } = this.props.dataVideoWatching.snippet;
@@ -103,7 +110,7 @@ class WatchPage extends PureComponent {
 						/>
 	}
 	_renderVideoDetailsLoading = () => {
-		return <div>Loading</div>
+		return <VideoDetails statusRequest="loading" />
 	}
 	_renderVideoDetailsContent = () => {
 		const { statusRequestVideoWatching } = this.props;
@@ -117,7 +124,18 @@ class WatchPage extends PureComponent {
 		}
 	}
 
-	render() {
+
+	_renderContent = () => {
+		const { statusRequestVideoWatching, statusRequestVideoRelated } = this.props;
+		if(statusRequestVideoRelated === "failure" || statusRequestVideoWatching === "failure") {
+			return <ErrorPage />
+		}
+		else if ( statusRequestVideoRelated !== "" && statusRequestVideoWatching !== "") {
+			return this._renderContentNotFailure();
+		}
+		else return null;
+	}
+	_renderContentNotFailure = () => {
 		const { statusRequestVideoWatching, dataVideoWatching, statusRequestVideoRelated, dataVideoRelated } = this.props;
 		const { getVideoWatching, getVideoRelated } = this.props;
 		const queryWatch = getQuery(window.location.search, "v");
@@ -162,12 +180,16 @@ class WatchPage extends PureComponent {
 							</div>
 							<div className="WatchPage__right__list-video">
 								{this._renderListRelatedVideoContent()}
+								{ statusRequestVideoRelated === "loading" && this._renderListRelatedVideoLoading()}
 							</div>
 						</div>
 					</div>
 				</div>
 			</Scroll>
 		)
+	}
+	render() {
+		return this._renderContent();
 	}
 }
 const mapStateToProps = state => {

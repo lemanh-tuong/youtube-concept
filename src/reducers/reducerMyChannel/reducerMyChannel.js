@@ -14,7 +14,7 @@ const MyChannelReducer = (state = initialState, action) => {
 			}
 		case GET_MYCHANNEL_FAILURE:
 			return {
-				state: "error",
+				state: "failure",
 				message: action.payload.message
 			}
 		default:

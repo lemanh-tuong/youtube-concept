@@ -1,10 +1,10 @@
-import React, { PureComponent, Component } from "react";
+import React, { PureComponent } from "react";
 import PropTypes from 'prop-types';
 import style from './Scroll.module.scss';
-class Scroll extends Component {
+class Scroll extends PureComponent {
   scrollElem = React.createRef();
   _handleScroll = () => {
-  	const { statusRequest, nowLength, maxLength, next, query } = this.props
+  	const { statusRequest, nowLength, maxLength, next, query } = this.props;
     const nowPosition = window.pageYOffset;
     const innerHeight = window.innerHeight;
     const elemHeight = this.scrollElem.current.clientHeight;
@@ -29,7 +29,6 @@ class Scroll extends Component {
     )
   }
   render() {
-    const { statusRequest, next, loader, hasMore } = this.props;
     return (
       <div ref={this.scrollElem} className="scroll">
         {this.props.children}
@@ -43,6 +42,7 @@ Scroll.propTypes = {
   hasMore: PropTypes.bool,
   loader: PropTypes.func,
   next: PropTypes.func,
+  nowLength: PropTypes.number,
   maxLength: PropTypes.number
 }
 export default Scroll;

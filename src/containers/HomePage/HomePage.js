@@ -1,13 +1,13 @@
 import React, { PureComponent } from 'react';
 import { connect } from 'react-redux';
-import PropTypes from 'prop-types';
 import SideBarLeft from './SideBarLeft/SideBarLeft';
 import SideBarRight from './SideBarRight/SideBarRight';
+import ErrorPage from '../ErrorPage/ErrorPage';
 class HomePage extends PureComponent {
 	componentDidMount() {
 		window.scrollTo(0,0)
 	}
-	render() {
+	_render() {
 		return (
 			<div className="HomePage">
 				<div className="row">
@@ -21,5 +21,20 @@ class HomePage extends PureComponent {
 			</div>
 		)
 	}
+	_renderContent() {
+		const { statusRequest } = this.props;
+		switch (statusRequest) {
+			case "failure":
+				return <ErrorPage />;
+			default:
+				return this._render();
+		}
+	}
+	render() {
+		return this._renderContent();
+	}
 }
-export default HomePage;
+const mapStateToProps = state => ({
+	statusRequest: state.HomePageReducers.data.status
+})
+export default connect(mapStateToProps, null)(HomePage);

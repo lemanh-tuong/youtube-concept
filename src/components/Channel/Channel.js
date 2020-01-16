@@ -4,7 +4,7 @@ import Avatar from '../Avatar/Avatar';
 import style from './Channel.module.scss';
 class Channel extends Component {
 	_renderChannelContent() {
-		const { statusUser, statusRequest, imgSrc, channelName, channelLocation, channelContact } = this.props;
+		const { statusUser, statusRequest, imgSrc, channelName, channelLocation } = this.props;
 		const checkStatusRequest = statusRequest === "loading" ? style.loading : null
 		return (
 			<div className={`${style.channel} ${checkStatusRequest}`}>
@@ -16,6 +16,7 @@ class Channel extends Component {
 						{ statusRequest === "success" ? channelName : "channelName"}
 					</div>
 					<div className={style.location}>
+						{channelLocation}
 						{ statusRequest === "success" ? "Montreal, QC" : "channelLocation"}
 					</div>
 				</div>
@@ -45,13 +46,14 @@ Channel.propTypes = {
 	channelName: PropTypes.string,
 	viewCount: PropTypes.string,
 	videoCount: PropTypes.string,
+	channelLocation: PropTypes.string,
 }
 Channel.defaultProps = {
 	statusUser: '',
 	statusRequest: "success",
 	imgSrc: '',
 	channelName: '',
-	videoCount: '0',
+	viewCount: '0',
 	videoCount: '0',
 
 }

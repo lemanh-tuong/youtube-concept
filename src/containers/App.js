@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { BrowserRouter as Router } from 'react-router-dom';
-import axios from 'axios';
 import { connect } from 'react-redux';
 import AppProvider, { AppContext } from '../AppProvider/AppProvider';
 import getVideoDefault from '../thunks/thunkGetVideoDefault/thunkGetVideoDefault';

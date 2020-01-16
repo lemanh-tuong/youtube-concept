@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import ErrorPage from '../../containers/ErrorPage/ErrorPage';
 import Avatar from '../Avatar/Avatar';
 import style from './TopChannel.module.scss';
 class TopChannel extends Component {

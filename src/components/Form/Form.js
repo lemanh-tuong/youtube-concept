@@ -1,10 +1,37 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { Link } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
 import style from './Form.module.scss';
 class Form extends Component {
 	state = {
-		keywords: ''
+		searching: false,
+		keywords: '',
+		listSuggestion: [],
+		submit: false
+	}
+	_renderSuggestionBox = () => {
+		return (
+			<div className={style.suggestionBox}>
+				<div className={style.suggestionContent}>
+					<ul className={style.listSuggestion}>
+						{this._renderListSuggestion()}
+					</ul>
+				</div>
+			</div>
+		)
+	}
+	_renderListSuggestion = () => {
+		const suggestions = localStorage.getItem("searched");
+		const listSuggestion = JSON.parse(suggestions);
+		return listSuggestion.map((suggestion, index) => this._renderSuggestion(suggestion, index))
+	}
+	_renderSuggestion = (content, key) => {
+		return (
+			<div className={style.suggestion}  key={key}>
+				<Link to={`?q=${content}`}>{content}</Link>
+				<button className={style.delete} onClick={this._handleRemoveSuggestion(content)}>Xóa</button>
+			</div>
+		)
 	}
 	_handleChange = (e) => {
 		e.persist();
@@ -12,26 +39,65 @@ class Form extends Component {
 			keywords: e.target.value
 		})
 	}
+	_handleFocus = () => {
+		this.setState({
+			searching: true
+		})
+	}
+	_handleSearch = () => {
+		const { keywords } = this.state;
+		const { onSubmitSearch } = this.props;
+		const keywordsSearched = localStorage.getItem("searched") ? JSON.parse(localStorage.getItem("searched")) : [];
+		console.log(keywordsSearched);
+		const newList = keywordsSearched.concat([keywords]);
+		localStorage.setItem("searched", JSON.stringify(newList));
+		onSubmitSearch(keywords)();
+		this.setState({
+			listSuggestion: [...newList],
+			submit: true
+		})
+	}
+	_handleRemoveSuggestion = (suggestionContent) => {
+		return () => {
+			const suggestions = localStorage.getItem("searched");
+			const listSuggestion = JSON.parse(suggestions);
+			const newList = listSuggestion.filter(suggestion => suggestion !== suggestionContent);
+			this.setState(state => {
+				return {
+					...state,
+					listSuggestion: [...newList]
+				}
+			})
+			localStorage.setItem("searched", JSON.stringify(newList));
+		}
+	}
 	render() {
 		const { onSubmitSearch } = this.props;
-		const { keywords } = this.state;
+		const { searching, keywords, submit } = this.state;
 		return (
-			<form className={style.form} onSubmit={onSubmitSearch(keywords)}>
-				<input type="text"
-				name="q"
-				className={style.formInput}
-				placeholder="Search for videos, stars or authors"
-				onChange={this._handleChange}
-				/>
-				<button type="submit" onClick={onSubmitSearch(keywords)}>
-					<Link
-					to={`/search/?q=${keywords}`}
-					className={style.formSubmit}
-					>
-						<i className="fas fa-search"></i>
-					</Link>
-				</button>
-			</form>
+			<React.Fragment>
+				{submit && <Redirect to={`/search?q=${keywords}`}/>}
+				<form className={style.form} onSubmit={this._handleSearch} autocomplete="off">
+					<input type="text"
+					name="q"
+					className={style.formInput}
+					placeholder="Search for videos, stars or authors"
+					onChange={this._handleChange}
+					onFocus={this._handleFocus}
+					/>
+					<button type="submit" onClick={onSubmitSearch(keywords)}>
+						<Link
+						to={`/search/?q=${keywords}`}
+						className={style.formSubmit}
+						>
+							<i className="fas fa-search"></i>
+						</Link>
+					</button>
+				</form>
+				<div className={style.box}>
+					{ searching && this._renderSuggestionBox()}
+				</div>
+			</React.Fragment>
 		)
 	}
 }

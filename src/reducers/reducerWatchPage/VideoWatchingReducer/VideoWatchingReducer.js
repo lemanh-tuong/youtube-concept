@@ -1,7 +1,6 @@
 import { GET_VIDEO_WATCHING_REQUEST, GET_VIDEO_WATCHING_SUCCESS, GET_VIDEO_WATCHING_FAILURE} from '../../../constants/actionTypes';
 const initialState = {}
 const VideoWatchingReducer = (state = initialState, action) => {
-	console.log(action.payload);
 	switch (action.type) {
 		case GET_VIDEO_WATCHING_REQUEST:
 			return {

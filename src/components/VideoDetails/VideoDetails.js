@@ -38,15 +38,10 @@ class VideoDetails extends PureComponent {
 	}
 	render() {
 		const { showMore, subscribed } = this.state;
-		const { publishedAt, channelId, videoName, description, imgSrc, channelTitle, tagsList, withTags, viewCount, likeCount, dislikeCount, favoriteCount, commentCount, statusRequest} = this.props;
-		const text = `Lorem Ipsum is simply dummy text of the printing and typesetting industry.
-										 Lorem Ipsum has been the industry's standard dummy text ever since the 1500s,
-										 when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries,
-										  but also the leap into electronic typesetting,
-										  remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages,
-										   and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.`
+		// const { channelId, favoriteCount, commentCount } = this.props
+		const { publishedAt, videoName, description, imgSrc, channelTitle, tagsList, withTags, viewCount, likeCount, dislikeCount, statusRequest} = this.props;
 		return (
-			<div className={style.loading}>
+			<div className={`${style.VideoDetails} ${style.loading}`}>
 				<div className="header">
 					<div className="VideoDetails__video">
 						<div className={style.player}>
@@ -111,7 +106,7 @@ class VideoDetails extends PureComponent {
 							<div className="info2">
 								<div className={style.info2Content}>
 									<div className={`${style.description} ${showMore && style.show}`}>
-										{description ? description : text}
+										{description ? description : null}
 									</div>
 									<MoreInfoButton showMore={showMore} onEventClick={this._handleToggleShowMore}/>
 								</div>

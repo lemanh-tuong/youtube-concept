@@ -61,12 +61,13 @@ class Slide extends Component {
 		sizeAvatar={sizeAvatar}
 		/>
 	}
-	_renderListSuccess = (listVideos, statusRequest) => {
+	_renderListSuccess = () => {
+		const { listVideos, statusRequest } = this.props;
 		return listVideos.map(videoDetails => {
 			const { channelTitle, channelId, title: videoTitle, thumbnails, publishedAt, description } = videoDetails.snippet;
 		  const videoId = videoDetails.contentDetails.upload.videoId;
 		  const key = videoDetails.id;
-		  const kind = videoDetails.id.kind;
+		  // const kind = videoDetails.id.kind;
 		  const sizeAvatar = "medium";
 		  const imgSrc = thumbnails.maxres.url;
 		  const withDesc = false;
@@ -87,10 +88,10 @@ class Slide extends Component {
 		})
 	}
 	_renderContentList = () => {
-		const { listVideos, statusRequest } = this.props;
+		const { statusRequest } = this.props;
 		switch (statusRequest) {
 			case "success":
-				return this._renderListSuccess(listVideos, statusRequest);
+				return this._renderListSuccess();
 			case "loading":
 				return this._renderListLoading();
 			default:
@@ -98,7 +99,6 @@ class Slide extends Component {
 		}
 	}
 	render() {
-		const { listVideos, statusRequest } = this.props;
 		const { currentSlide } = this.state
 		const margin = {
 			transform: `translateX(calc(-${50 * currentSlide}% - ${10 * currentSlide}px))`

@@ -19,7 +19,7 @@ class VideoCard extends Component {
 		)
 	}
 	_renderVideoCard() {
-		const { channelTitle, channelId, videoTitle, imgSrc, publishedAt, description, videoId, statusRequest, withDesc, withAvatar, sizeAvatar, onEventClickWatch, onEventClickChannel } = this.props;
+		const { channelTitle, channelId, videoTitle, imgSrc, publishedAt, description, videoId, statusRequest, withDesc, withAvatar, sizeAvatar, onEventClickWatch } = this.props;
 		const checkStatus = statusRequest === "loading" ? style.loading : null
 		return (
 			<div className={`${style.videoCard} ${checkStatus}`}>
@@ -59,12 +59,13 @@ class VideoCard extends Component {
 	}
 	_renderVideoCard2() {
 		const { channelTitle, channelId, videoTitle, imgSrc, publishedAt, description, videoId, statusRequest, onEventClickWatch, onEventClickChannel } = this.props;
-		const checkStatus = statusRequest === "loading" ? style.loadingRow : null
+		const checkStatus = statusRequest === "loading" ? style.loadingRow : null;
+		const eventClick = statusRequest === "success" && onEventClickWatch;
 		return (
 			<div className={`${style.videoCard2} ${checkStatus}`}>
 				<div className={style.left}>
 					<div className={style.img}>
-							<Link to={`/watch?v=${videoId}`} onClick={statusRequest === "success" && onEventClickWatch(videoId)}>
+							<Link to={`/watch?v=${videoId}`} onClick={eventClick && onEventClickWatch(videoId)}>
 								{ statusRequest === "success" && <img src={imgSrc} alt="Img" />}
 							</Link>
 					</div>
@@ -90,7 +91,7 @@ class VideoCard extends Component {
 		)
 	}
 	render() {
-		const { displayRow } = this.props
+		const { displayRow } = this.props;
 		return (
 			displayRow ? this._renderVideoCard2() : this._renderVideoCard()
 		)

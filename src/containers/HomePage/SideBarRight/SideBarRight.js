@@ -165,7 +165,8 @@ class SideBarRight extends PureComponent {
 	}
 }
 SideBarRight.propTypes = {
-
+	data: PropTypes.object,
+	statusRequest: PropTypes.string,
 }
 const mapStateToProps = state => ({
 	data: state.HomePageReducers.data.data,

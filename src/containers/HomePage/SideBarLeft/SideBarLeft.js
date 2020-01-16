@@ -6,7 +6,6 @@ import getVideoDefault from '../../../thunks/thunkGetVideoDefault/thunkGetVideoD
 import ErrorPage from '../../ErrorPage/ErrorPage'
 import Slide from '../../../components/Slide/Slide';
 import VideoCard from '../../../components/VideoCard/VideoCard';
-import ListVideo from '../../../components/ListVideo/ListVideo';
 import style from './SideBarLeft.module.scss';
 
 
@@ -36,7 +35,7 @@ class SideBarLeft extends PureComponent {
 			const { channelTitle, channelId, title: videoTitle, thumbnails, publishedAt, description } = videoDetails.snippet;
 		  const videoId = videoDetails.contentDetails.upload.videoId;
 		  const key = videoDetails.id;
-		  const kind = videoDetails.id.kind;
+		  // const kind = videoDetails.id.kind;
 		  const sizeAvatar = "medium";
 		  const imgSrc = thumbnails.maxres.url;
 		  const withDesc = false;
@@ -63,6 +62,8 @@ class SideBarLeft extends PureComponent {
 				return this._renderListSuccess(data, statusRequest);
 			case "loading":
 				return this._renderListLoading();
+			case "failure":
+				return <ErrorPage />
 			default:
 				return null
 		}
@@ -73,8 +74,6 @@ class SideBarLeft extends PureComponent {
 		const { data, statusRequest } = this.props;
 		const { channelTitle, channelId, title: videoTitle, thumbnails, publishedAt, description } = data[0].snippet;
 	  const videoId = data[0].contentDetails.upload.videoId;
-	  const key = data[0].id;
-	  const kind = data[0].id.kind;
 	  const sizeAvatar = "medium";
 	  const imgSrc = thumbnails.maxres.url;
 	  const withDesc = true;
