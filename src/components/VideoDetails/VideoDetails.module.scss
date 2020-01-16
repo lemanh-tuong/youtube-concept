@@ -1,4 +1,34 @@
 @import '../../styles/animation.scss';
+$base-color: #F4F4F4;
+$shine-color: rgba(229,229,229,0.8);
+$animation-duration: 1.0s;
+@mixin background-gradient-animation {
+	background-image: linear-gradient(90deg, $base-color 0px, $shine-color 40px, $base-color 80px);
+	transform-origin: left;
+	animation: loading $animation-duration infinite;
+}
+@mixin defaultStyle($text) {
+	position: relative;
+	background: $base-color;
+	overflow: hidden;
+	width: 100%;
+	&:before {
+		@if $text {
+			content: '.';
+		}
+		@else {
+			content: '';
+		}
+		position: absolute;
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 100%;
+		color: transparent;
+		@include background-gradient-animation();
+		z-index: 123;
+	}
+}
 .VideoDetails {
 }
 .body {
@@ -71,19 +101,39 @@
 }
 
 .loading {
+	& .player, .infoContent, .top, .info2 {
+		@include defaultStyle(0);
+	}
+	& .tags, .videoName {
+		@include defaultStyle(1);
+	}
 	& .player {
 		min-height: 332px;
 		max-height: 532px;
-		@include background-gradient();
-		animation: shine-image $animation-duration infinite ease-out;
+	}
+	& .tags {
+		margin-bottom: 5px;
+		& a {
+			color: transparent;
+		}
+	}
+	& .videoName, .infoContent {
+		color: transparent;
+	}
+	& .top {
+		@include defaultStyle(0);
+	}
+	& .info2 {
+		@include defaultStyle(0);
+		color: transparent;
+		& button {
+			display: none;
+		}
 	}
 }
-@keyframes :local(shine-image) {
-  0% {
-    background-position: 0px;
-  }
-  40%, 100% {
-    background-position: 502px;
-  }
+@keyframes :local(loading) {
+	100% {
+	 transform: translateX(100%);
+	}
 }
 

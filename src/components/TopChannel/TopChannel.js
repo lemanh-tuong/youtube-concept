@@ -30,18 +30,18 @@ class TopChannel extends Component {
 		)
 	}
 	_renderLoading() {
+		const { channelName, channelAmmountSubscriber, withMoreInfo, statusRequest } = this.props
 		return (
-			<div className={style.topChannelLoading}>
-				<div className={style.channelAvatarLoading}>
-					<Avatar size="medium" />
-					Loading
+			<div className={`${style.topChannel} ${style.loading}`}>
+				<div className={style.channelAvatar}>
+					<Avatar size="medium" statusRequest={statusRequest} />
 				</div>
-				<div className={style.channelInfoLoading}>
-					<div className={style.channelNameLoading}>
-						Loading
+				<div className={style.channelInfo}>
+					<div className={style.channelName}>
+
 					</div>
-					<div className={style.channelContactLoading}>
-						<span>Loading</span>
+					<div className={style.channelContact}>
+						<span></span>
 					</div>
 				</div>
 			</div>

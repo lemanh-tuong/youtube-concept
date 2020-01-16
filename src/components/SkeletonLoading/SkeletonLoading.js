@@ -1,9 +1,7 @@
-import React, { PureComponent } from 'react';
+import React, { memo } from 'react';
 import PropTypes from 'prop-types';
 import style from './SkeletonLoading.module.scss';
-class SkeletonLoading extends PureComponent {
-	_className() {
-		const { type } = this.props;
+const _className = (type) => {
 		switch (type) {
 			case "header":
 				return style.skeletonHeader;
@@ -13,18 +11,10 @@ class SkeletonLoading extends PureComponent {
 				return style.skeletonInitial;
 		}
 	}
-	render() {
-		const { width, height, fontSize, style } = this.props;
-		const styleLoading = {
-			width: width ? width : null,
-			height: height ? height : null,
-			fontSize: fontSize ? fontSize : null,
-		}
-		return (
-			<div className={this._className()} style={style ? style : styleLoading} />
-		)
-	}
-}
+
+const SkeletonLoading = memo (({ type, width, height, fontSize, style }) => {
+	return <div className={_className(type)} style={style ? style : styleLoading} />
+})
 SkeletonLoading.propTypes = {
 	type: PropTypes.string,
 	width: PropTypes.string,

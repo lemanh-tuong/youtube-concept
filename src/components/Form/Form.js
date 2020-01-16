@@ -16,9 +16,9 @@ class Form extends Component {
 			keywords: e.target.value
 		})
 	}
-	_handleFocus = () => {
+	_handleToggleFocus = () => {
 		this.setState({
-			searching: true
+			searching: !this.state.searching
 		})
 	}
 	_handleSearch = () => {
@@ -62,7 +62,8 @@ class Form extends Component {
 					className={style.formInput}
 					placeholder="Search for videos, stars or authors"
 					onChange={this._handleChange}
-					onFocus={this._handleFocus}
+					onFocus={this._handleToggleFocus}
+					onBlur={this._handleToggleFocus}
 					/>
 					<button type="submit" onClick={onSubmitSearch(keywords)}>
 						<Link

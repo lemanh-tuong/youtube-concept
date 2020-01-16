@@ -32,7 +32,7 @@ class VideoDetails extends PureComponent {
 		return <Link to={`/search/?q=${tagContent}`} className="tag" key={key}>#{tagContent}</Link>
 	}
 	_renderTagsListComponent(tagsList) {
-		return <div className="tags">{this._renderTags(tagsList)}</div>
+		return <div className={style.tags}>{this._renderTags(tagsList)}</div>
 	}
 	componentDidMount() {
 	}
@@ -40,18 +40,19 @@ class VideoDetails extends PureComponent {
 		const { showMore, subscribed } = this.state;
 		// const { channelId, favoriteCount, commentCount } = this.props
 		const { publishedAt, videoName, description, imgSrc, channelTitle, tagsList, withTags, viewCount, likeCount, dislikeCount, statusRequest} = this.props;
+		const checkStatusRequest = statusRequest === "loading" ? style.loading : null;
 		return (
-			<div className={`${style.VideoDetails} ${style.loading}`}>
+			<div className={`${style.VideoDetails} ${checkStatusRequest}`}>
 				<div className="header">
 					<div className="VideoDetails__video">
 						<div className={style.player}>
-							{ statusRequest === "success" && <img src={imgSrc} alt="player" />}
+							<img src={imgSrc} alt="player" />
 						</div>
 					</div>
 				</div>
 				<div className={style.body}>
 					<div className="VideoDetails__content">
-						{withTags && this._renderTagsListComponent(tagsList)}
+						{tagsList && this._renderTagsListComponent(tagsList)}
 						<div className={style.videoName}>{videoName}</div>
 						<div className="VideoDetails__info">
 							<div className={style.infoContent}>
@@ -103,7 +104,7 @@ class VideoDetails extends PureComponent {
 								</div>
 								<SubscribeButton subscribed={subscribed} onEventClick={this._handleSubscribe}/>
 							</div>
-							<div className="info2">
+							<div className={style.info2}>
 								<div className={style.info2Content}>
 									<div className={`${style.description} ${showMore && style.show}`}>
 										{description ? description : null}

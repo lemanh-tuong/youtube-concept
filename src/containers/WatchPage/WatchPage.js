@@ -9,7 +9,7 @@ import VideoDetails from '../../components/VideoDetails/VideoDetails';
 import ToggleButton from '../../components/ButtonComponent/ToggleButton/ToggleButton';
 import FormComment from '../../components/FormComment/FormComment';
 import ErrorPage from '../ErrorPage/ErrorPage';
-// import SectionComment from '../../components/SectionComment/SectionComment';
+import SectionComment from '../SectionComment/SectionComment';
 import Scroll from '../../components/Scroll/Scroll';
 import style from './WatchPage.module.scss';
 
@@ -61,7 +61,7 @@ class WatchPage extends PureComponent {
 		  const videoId = videoDetails.id.videoId;
 		  const key = videoDetails.etag;
 		  const sizeAvatar = "medium";
-			return this._renderVideoCard(channelTitle, channelId, videoTitle, imgSrc, publishedAt, description, videoId, key, sizeAvatar, statusRequestVideoRelated, this._handleWatchVideo)
+			return this._renderVideoCard(channelTitle, channelId, videoTitle, imgSrc, publishedAt, description, videoId, key, sizeAvatar, "success", this._handleWatchVideo)
 		})
 	}
 	// _renderListRelatedVideoLoading = () => {
@@ -73,17 +73,6 @@ class WatchPage extends PureComponent {
 	_renderListRelatedVideoLoading = () => {
 		const arr = [1,2,3,4,5];
 		return arr.map(id => this._renderVideoCard());
-	}
-	_renderListRelatedVideoContent = () => {
-		const { statusRequestVideoRelated } = this.props;
-		switch (statusRequestVideoRelated) {
-			case "loading":
-				return this._renderListRelatedVideo();
-			case "success":
-				return this._renderListRelatedVideo();
-			default:
-				return null;
-		}
 	}
 
 	// Video Details
@@ -158,6 +147,18 @@ class WatchPage extends PureComponent {
 								<AppContext.Consumer>
 									{({onSubmitComment}) => <FormComment onEventSubmit={onSubmitComment} />}
 								</AppContext.Consumer>
+								<div className="section-comment">
+									<SectionComment />
+								</div>
+								<div className="section-comment">
+									<SectionComment />
+								</div>
+								<div className="section-comment">
+									<SectionComment />
+								</div>
+								<div className="section-comment">
+									<SectionComment />
+								</div>
 							</div>
 						</div>
 					</div>
@@ -179,7 +180,7 @@ class WatchPage extends PureComponent {
 								</div>
 							</div>
 							<div className="WatchPage__right__list-video">
-								{this._renderListRelatedVideoContent()}
+								{this._renderListRelatedVideo()}
 								{ statusRequestVideoRelated === "loading" && this._renderListRelatedVideoLoading()}
 							</div>
 						</div>

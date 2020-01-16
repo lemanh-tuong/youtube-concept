@@ -64,9 +64,9 @@ class SettingPage extends PureComponent{
 		return (
 			<div className={style.SettingPage}>
 				<div className={style.goBackButton}>
-					<a onClick={this._handleGoBack}>
+					<div onClick={this._handleGoBack}>
 						<i className="fas fa-sign-out-alt"></i>
-					</a>
+					</div>
 				</div>
         <div className={style.container}>
           <div className={style.header}>
